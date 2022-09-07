@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Request Creation Tool">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="author" content="Nicol Castillo">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="src/theme/basic.css">
+        <script src="reaction.js"></script>
+    </head>
+    <body>
+        <div class="window" id="windowCreate">
+            <div class="input">
+                <div class="ROW">                    
+                    <div class="celler">
+                        <div class="name">
+                            <div class="cell">
+                                DELIVERY
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="celler">
+                        <div class="cell">
+                            <div class="toggleButton">
+                                <div class="togleDelivery">
+                                    <button class="buttonDefault" id="toggleOnline">online</button>
+                                    <button class="buttonSecond"  id="toggleOnsite">on-site</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="expansion" id="ExpDelivery">
+                        <div class="styExpDeliveryOnsite" id="ExpDeliveryOnsite">
+                            <div class="sub">
+                                <div class="sub">
+                                    <div class="celler">
+                                        <div class="name">
+                                            <div class="cell">
+                                                Onsite location:
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                    <div class="subcol">
+                                        <div class="textArea">
+                                            <input>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sub">
+                                    <div class="subcol">
+                                        <div class="name">
+                                            location link:
+                                        </div>
+                                    </div>                                    
+                                    <div class="subcol">
+                                        <div class="textArea">
+                                            <input>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div>                        
+                                                                                        
+                        </div>
+                        <div class="styExpDeliveryOnline" id="ExpDeliveryOnline">
+                            <div class="sub">
+                                <div class="col3">
+                                    <div class="name">
+                                        Bluejeans:
+                                    </div>
+                                </div>
+                                <div class="col4">
+                                    <div class="toggleButton">
+                                        <div class="togleDelivery">
+                                            <button class="buttonDefault" id="toggleBluejeansYes">YES</button>
+                                            <button class="buttonSecond"  id="toggleBluejeansNo">NO</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ITEM">
+                    <div class="col1">
+                        <div class="name">
+                            Invites:
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <div class="toggleButton">
+                            <div class="togleInvites">
+                                <button class="buttonDefault" id="toggleInvitesYes">YES</button>
+                                <button class="buttonSecond"  id="toggleInvitesNo">NO</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col3">
+                        <div class="toggleButton" id="onlineSpec">
+                            <div class="togleVersion">
+                                <button class="buttonDefault" id="toggleInvitesAll">All</button>
+                                <button class="buttonSecond"  id="toggleInvitesInstructor">Just instructor</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col4">
+                        <div class="toggleButton" id="invitesLanguage">
+                            <div class="togleVersion">
+                                <button class="buttonDefault" id="toggleInvitesEng">ENG</button>
+                                <button class="buttonSecond"  id="toggleInvitesOther">other</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="expansionTextArea">
+                        <div class="textArea" id="textAreaInvitesLanguage">
+                            <div class="col5">
+                                <div>
+                                    <input placeholder="jap, viet, ...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ITEM">
+                    <div class="col1">
+                        <div class="name">
+                            Ebook enabled:
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <div class="toggleButton">
+                            <div class="togleDelivery">
+                                <button class="buttonDefault" id="toggleEbookYes">YES</button>
+                                <button class="buttonSecond"  id="toggleEbookNo">NO</button>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="ITEM">
+                    <div class="col1">
+                        <div class="name">
+                            Offering ID:
+                        </div>
+                    </div>
+                    
+                    <div class="col2">
+                        <div class="toggleButton">
+                            <div class="togleDelivery">
+                                <button class="buttonDefault" id="toggleOfferingSingle">single</button>
+                                <button class="buttonSecond"  id="toggleOfferingMulti">Multiple</button>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="PrimaryOffering" id="offeringPrimary">
+                        <div class="textAreaOfferingPrimary">
+                            <div class="sub">
+                                <div class="col3">primary:</div>
+                                <div class="col4">
+                                    <input type="text" placeholder="00000000" pattern="[0-9]{8}">
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="expansionInvites" id="offeringMulti">                        
+                        <div class="textAreaOfferingOthers">
+                            <div class="sub">
+                                <div class="col5">other:</div>
+                                <div class="col6">
+                                    <input type="text" placeholder="max 4" pattern="[0-9]{8},[0-9]{8},[0-9]{8},[0-9]{8}">
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                </div> 
+                <div class="ITEM">
+                    <div class="col1">
+                        <div class="name">
+                            region:
+                        </div>
+                    </div>
+                    
+                    <div class="col2">
+                        <div class="textArea">
+                            <input placeholder="EMEA" pattern="[EMEA, APAC, LATAM, NAMER]">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="ITEM">
+                    <div class="col1">
+                        <div class="name">
+                            Instructor RHNID:
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <div class="textArea">
+                            <input placeholder="rhnidkekito">
+                        </div>
+                    </div>
+                </div>
+                <div class="ITEM">
+                    <div class="col1">
+                        <div class="name">
+                            Instructor email:
+                        </div>
+                    </div>    
+                    <div class="col2">
+                        <div class="textArea">
+                            <input placeholder="rhnidkekito@email">
+                        </div>
+                    </div>
+                </div>
+                <div class="ITEM">
+                    <div class="col1">
+                        <div class="name">
+                            no of exp. std:
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <div class="textArea">
+                        <input placeholder="22">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="ITEM">
+                    <div class="col1">
+                        <div class="name">
+                            corse code:
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <div class="textArea">
+                            <input placeholder="RH124">
+                        </div>
+                    </div>
+                    <div class="col3">
+                        <div class="toggleButton">
+                            <div class="togleVersion">
+                                <button class="buttonDefault" id="toggleCourseVersionDef">def course version</button>
+                                <button class="buttonSecond"  id="toggleCourseVersionSpec">spec course version</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="expansionInvites">
+                        <div class="col4">
+                            <div class="textAreaSpecVersion" id="courseVersion">
+                                <input>
+                            </div>
+                        </div>                        
+                    </div>
+                    
+                    
+                </div>
+                <div class="ITEM">
+                    <div class="col1">
+                        <div class="name">
+                            lms time:
+                        </div>
+                    </div>
+                    
+                    <div class="col2">
+                        <div class="textArea">
+                            <input placeholder="lms input kekekek.3.2022">                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div> 
+            <div class="confirmation">
+                <button class="opt1" id="buttonProcess">Process</button>
+                <button class="opt2"  id="buttonEmpty">Empty</button>
+            </div>
+        </div>
+        <div class="windowConfirmtion" id="windowConfirm">
+            <div> overview window </div>
+            <div class="confirmtion">
+                <button class="opt1" id="buttonConfirm">Confirm</button>
+                <button class="opt2" id="buttonEdit">Edit</button>
+            </div>
+        </div>
+        <div class="windowReport" id="windowReport">
+            <div> return msg to user </div>
+            <div class="confirmtion">
+                <button class="opt1" id="buttonCreateNew">New Ticket</button>
+                <button class="opt2" id="buttonFromLast">New from last version</button>
+            </div>
+        </div>
+    </body>
+</html>

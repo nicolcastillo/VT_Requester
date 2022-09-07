@@ -1,0 +1,103 @@
+body {
+    background-color: rgba(122, 0, 0, 0.212);
+    padding: 1%;
+    font-size: large;
+}
+
+.window, .windowConfirmtion, .windowReport {
+    background-color: rgb(125, 15, 15);
+    color: white;
+    width: 90%;
+    height: auto;
+
+    /* below line allignes window to center */
+    margin: auto;
+    padding: 1%;
+}
+
+.styExpDeliveryOnsite, .sub, .subcol, .ITEM{
+    display: flex;
+}
+
+button{
+    background-color: rgb(125, 15, 15);
+    color: white;
+    border: 1px solid white;
+    width: 150px;
+    height: 20px;
+}
+
+.buttonDefault {
+    background-color: rgb(97, 20, 6);
+}
+.buttonSecond {
+    background-color: rgb(200, 100, 0);
+}
+
+.windowReport, .windowConfirmtion, .styExpDeliveryOnsite{
+    display: none;
+}
+
+input{
+    width: 100px;
+}
+
+.col1{
+    /* background-color: blue; */
+    width: 150px;
+    /* display: none; */
+    
+}
+.col2{
+    /* background-color: aquamarine; */
+    width: 150px;
+    /* display: none; */
+}
+.col3{
+    /* background-color: blueviolet; */
+    width: 150px;
+    /* display: none; */
+}
+.col4{
+    /* background-color: burlywood; */
+    width: 150px;
+    /* display: none; */
+}
+.col5{
+    /* background-color: chartreuse; */
+    width: 150px;
+    /* display: none; */
+}
+.col6{
+    /* background-color: crimson; */
+    width: 150px;
+    /* display: none; */
+}
+
+/* .col1, .col2, .col3, .col4,.col5,.col6,.col7{
+    height: 30px;
+    margin-top: auto;
+    
+    padding-left: 1%;
+    padding-right: 1%; 
+} */
+
+.ROW {
+    display: inline-flex;
+    padding-bottom: 1%;
+}
+
+.celler{
+    /* border: 2px solid yellow; */
+    padding: 0.5%;
+    width: 150px;
+    height: 30px;
+}
+
+.cell{
+    /* border: 1px solid black; */
+    padding: 1%;
+}
+.subcol{
+    width: 150px;
+}
