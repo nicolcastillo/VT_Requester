@@ -1,103 +1,151 @@
 body {
     background-color: rgba(122, 0, 0, 0.212);
-    padding: 1%;
+    padding: 10px;
     font-size: large;
 }
 
 .window, .windowConfirmtion, .windowReport {
     background-color: rgb(125, 15, 15);
     color: white;
-    width: 90%;
+    width: 890px;
     height: auto;
 
     /* below line allignes window to center */
     margin: auto;
-    padding: 1%;
+    padding: 10px;
 }
 
 .styExpDeliveryOnsite, .sub, .subcol, .ITEM{
     display: flex;
 }
 
-button{
+button, .opt1, .opt2{
     background-color: rgb(125, 15, 15);
     color: white;
     border: 1px solid white;
-    width: 150px;
+    width: 140px;
     height: 20px;
 }
 
-.buttonDefault {
-    background-color: rgb(97, 20, 6);
+.opt1, .opt2{
+    width: 200px;
+    height: 40px;
+    font-size: large;
 }
-.buttonSecond {
+
+button:hover{
+    background-color: rgb(170, 0, 0);
+}
+
+.buttonDefault {
     background-color: rgb(200, 100, 0);
 }
 
-.windowReport, .windowConfirmtion, .styExpDeliveryOnsite{
+.buttonSecond {
+    background-color: rgb(97, 20, 6);
+}
+
+.windowReport, .styExpDeliveryOnsite, .expansionVersion{
+    /* .windowReport, .styExpDeliveryOnsite, .expansionVersion, .windowConfirmtion{ */
     display: none;
 }
 
 input{
-    width: 100px;
+    width: 130px;
 }
-
-.col1{
-    /* background-color: blue; */
-    width: 150px;
-    /* display: none; */
-    
-}
-.col2{
-    /* background-color: aquamarine; */
-    width: 150px;
-    /* display: none; */
-}
-.col3{
-    /* background-color: blueviolet; */
-    width: 150px;
-    /* display: none; */
-}
-.col4{
-    /* background-color: burlywood; */
-    width: 150px;
-    /* display: none; */
-}
-.col5{
-    /* background-color: chartreuse; */
-    width: 150px;
-    /* display: none; */
-}
-.col6{
-    /* background-color: crimson; */
-    width: 150px;
-    /* display: none; */
-}
-
-/* .col1, .col2, .col3, .col4,.col5,.col6,.col7{
-    height: 30px;
-    margin-top: auto;
-    
-    padding-left: 1%;
-    padding-right: 1%; 
-} */
 
 .ROW {
-    display: inline-flex;
-    padding-bottom: 1%;
-}
-
-.celler{
-    /* border: 2px solid yellow; */
-    padding: 0.5%;
-    width: 150px;
+    display: flex;
+    padding-bottom: 1px;
     height: 30px;
+    /* background-color: blue; */
 }
 
-.cell{
-    /* border: 1px solid black; */
-    padding: 1%;
+.ROWstatusButtons{
+    height: 40px;
+    padding-top: 20px;
 }
+
+.opt2{
+    float: right;
+}
+
+.name{
+    width: 140px;
+}
+.celler{
+    padding-right: 10px;
+}
+
 .subcol{
     width: 150px;
+}
+
+p{
+    display: inline;
+}
+
+h2{
+    text-align: center;
+    margin-top: 10px;
+}
+
+h3{
+    font-size:larger;
+    display: inline;
+}
+
+.form_sec_title{
+    background-color: rgb(102, 34, 7);
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 2px rgb(85, 0, 0) solid;
+    border-top: 2px rgb(170, 0, 0) solid;
+    border-left: 2px rgb(170, 0, 0) solid;
+}
+
+.form_main_sec{
+    /* background-color: rgb(99, 59, 0); */
+    padding: 10px;
+    /* border: solid 1px green; */
+}
+
+.form_sec{
+    /* border-bottom: rgb(192, 177, 37) 5px solid; */
+    border-bottom: rgb(125, 15, 15) 5px solid;
+}
+
+.form_row{
+    height: 40px;
+    border-bottom: 2px rgb(85, 0, 0) solid;
+    display: flex;
+}
+.line{
+    display: inline;
+    background-color: rgb(102, 34, 7);
+    border-top: 2px rgb(170, 0, 0) solid;
+    border-left: 2px rgb(170, 0, 0) solid;
+}
+.form_name{
+    background-color: rgb(102, 34, 7);
+}
+.sub_left{
+    width: 150px;
+    text-align: right;
+    background-color: rgb(102, 34, 7);
+    padding: 10px;
+}
+.sub_right, .sub_right_list{
+    width: 200px;
+    padding: 10px;
+}
+
+.sub_right_list{
+    width: auto;
+}
+
+.form_sub{
+    display: flex;
+    border-left: 2px rgb(170, 0, 0) solid;
 }

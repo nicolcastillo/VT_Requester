@@ -1,5 +1,23 @@
-// Online delivery
-// var deliverySwitch = true
+var deliveryOnline = true
+var Bluejeans = true
+var Invites = true
+var invitesToStudnets = true
+var invitesInEng = true
+var singleOffering = true
+var ebook = true
+var leastVersion = true
+
+var textAreaLocationAddress = ""
+var textAreaLocationLink = ""
+
+var textAreaInviteLanguage = ""
+
+var textAreaPrimary = ""
+var textAreaOtherOfferings = ""
+
+var textAreaRegion = ""
+var textArea = ""
+
 
 document.addEventListener('DOMContentLoaded', function() {
     var defButtonOnline = document.getElementById('toggleOnline');
@@ -37,81 +55,83 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// OK // onClick's DELIVERY logic below:
     defButtonOnline.addEventListener('click', function() {
-        // OK
         handlerOnlineToOnsite();
+        deliveryOnline = false
+        Bluejeans = false
     });
     offButtonOnsite.addEventListener('click', function() {
-        // OK
         handlerOnsiteToOnline();
+        deliveryOnline = true
+        Bluejeans = true
     });
 
     // OK // onClick's Bluejeans logic below:
     defButtonBjYes.addEventListener('click', function() {
-        // OK
         handlerBluejeansYesToNo();
+        Bluejeans = false
     });
     offButtonBjNo.addEventListener('click', function() {
-        // OK
         handlerBluejeansNoToYes();
+        Bluejeans = true
     });
 
     // OK // onClick's Invites logic below:
     defButtonInvitesYes.addEventListener('click', function() {
-        // OK
         handlerInvitesYesToNo();
+        Invites = false
     });
     offButtonInvitesNo.addEventListener('click', function() {
-        // OK
         handlerInvitesNoToYes();
+        Invites = true
     });
 
     // OK // onClick's Invitees logic below:
     defButtonInvitesAll.addEventListener('click', function() {
-        // OK
         handlerShowToHide('toggleInvitesAll', 'toggleInvitesInstructor');
+        invitesToStudnets = false
+        
     });
     offButtonInvitesInstructor.addEventListener('click', function() {
-        // OK
         handlerShowToHide('toggleInvitesInstructor', 'toggleInvitesAll');
+        invitesToStudnets = true
     });
 
     // onClick's Language logic below:
     defButtonInvitesEng.addEventListener('click', function() {
-        // OK
         handlerInvitesEngToOther();
+        invitesInEng = false
     });
     offButtonInvitesOther.addEventListener('click', function() {
-        // OK
         handlerInvitesOtherToEng();
+        invitesInEng = true
     });
 
     // onClick's Ebook logic below:
     defEbookYes.addEventListener('click', function(){
-        // OK
         handlerEbookYesToNo();
+        ebook = false
+        
     });
     offEbookNo.addEventListener('click', function(){
-        // OK
         handlerEbookNoToYes();
+        ebook = true
     });
 
     // onClick's Offering logic below:
     defOfferingSingle.addEventListener('click', function(){
-        // OK
         handlerOfferingSingleToMulti();
+        singleOffering = false
     });
     offOfferingMulti.addEventListener('click', function(){
-        // OK
         handlerOfferingMultiToSingle();
+        singleOffering = true
     });
 
     // OK // onClick's Version logic below:
     defCourseVersionLast.addEventListener('click', function(){
-        // OK
         handlerVersionLastToOther();
     });
     offCourseVersionOther.addEventListener('click', function(){
-        // OK
         handlerVersionOtherToLast();
     });
 
@@ -315,6 +335,9 @@ function handlerVersionOtherToLast(){
 
 function handlerButtonProcess(){
     handlerShowToHide('windowCreate', 'windowConfirm')
+    var overviewMsg = document.getElementById("confirmMsg")
+    var retVal = getValues()
+    overviewMsg.innerHTML = retVal
 };
 
 function handlerButtonEdit(){
@@ -332,6 +355,8 @@ function handlerButtonNew(){
 
 function handlerNewFromLast(){
     handlerShowToHide('windowReport', 'windowCreate')
+    var value = document.getElementById("primaryValue")
+    value.value = ""
 };
 
 function handlerButtonEmpty(){
@@ -342,4 +367,70 @@ function handlerButtonEmpty(){
     handlerEbookNoToYes();
     handlerOfferingMultiToSingle();
     handlerVersionOtherToLast();
+    var value = document.getElementById("primaryValue")
+    value.value = ""
+    value = document.getElementById('addressValue')
+    value.value = "" 
+    value = document.getElementById('linkValue')
+    value.value = ""
+    value = document.getElementById("inviteValue")
+    value.value = "" 
+    value = document.getElementById('otherOfferingsValue')
+    value.value = "" 
+    value = document.getElementById('regionValue')
+    value.value = "" 
+    value = document.getElementById('instrRhnidValue')
+    value.value = "" 
+    value = document.getElementById('instrEmailValue')
+    value.value = "" 
+    value = document.getElementById('studValue')
+    value.value = "" 
+    value = document.getElementById('courseValue')
+    value.value = "" 
+    value = document.getElementById('lmsValue')
+    value.value = ""
+
 };
+
+function getValues(){
+    var delivery = document.getElementById('cmDelivery')
+
+    var locdeliveryOnline = deliveryOnline
+    var locBluejeans = Bluejeans
+    var locInvites = Invites
+    var locinvitesToStudnets = invitesToStudnets
+    var locinvitesInEng = invitesInEng
+    var locsingleOffering = singleOffering
+    var locebook = ebook
+    var locleastVersion = leastVersion
+
+    var loctextAreaLocationAddress = textAreaLocationAddress
+    var loctextAreaLocationLink = textAreaLocationLink
+
+    var loctextAreaInviteLanguage = textAreaInviteLanguage
+
+    var loctextAreaPrimary = textAreaPrimary
+    var loctextAreaOtherOfferings = textAreaOtherOfferings
+
+    var loctextAreaRegion = textAreaRegion
+    var loctextArea = textArea
+
+    var outString = "DELIVERY: "
+
+    if (locdeliveryOnline){
+        outString += "online"
+    } else {
+        outString += "ONSITE"
+    }
+
+    outString += "\r\nBluejeans: "
+
+    if(locBluejeans){
+        outString += "yes"
+    } else {
+        outString += "NO"
+    }
+
+    return outString
+
+}
