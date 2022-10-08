@@ -7,7 +7,7 @@ body {
 .window, .windowConfirmtion, .windowReport {
     background-color: rgb(125, 15, 15);
     color: white;
-    width: 890px;
+    width: 900px;
     height: auto;
 
     /* below line allignes window to center */
@@ -38,11 +38,11 @@ button:hover{
 }
 
 .buttonDefault {
-    background-color: rgb(200, 100, 0);
+    background-color: rgb(97, 20, 6);
 }
 
 .buttonSecond {
-    background-color: rgb(97, 20, 6);
+    background-color: rgb(200, 100, 0);
 }
 
 .windowReport, .styExpDeliveryOnsite, .expansionVersion{
@@ -96,7 +96,7 @@ h3{
 }
 
 .form_sec_title{
-    background-color: rgb(102, 34, 7);
+    background-color: rgb(114, 4, 0);
     padding-left: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -113,32 +113,32 @@ h3{
 
 .form_sec{
     /* border-bottom: rgb(192, 177, 37) 5px solid; */
-    border-bottom: rgb(125, 15, 15) 5px solid;
+    border-bottom: rgb(125, 15, 15) 7px solid;
 }
 
 .form_row{
-    height: 40px;
+    height: 30px;
     border-bottom: 2px rgb(85, 0, 0) solid;
     display: flex;
 }
 .line{
     display: inline;
-    background-color: rgb(102, 34, 7);
+    background-color: rgb(114, 4, 0);
     border-top: 2px rgb(170, 0, 0) solid;
     border-left: 2px rgb(170, 0, 0) solid;
 }
 .form_name{
-    background-color: rgb(102, 34, 7);
+    background-color: rgb(114, 4, 0);
 }
 .sub_left{
     width: 150px;
     text-align: right;
-    background-color: rgb(102, 34, 7);
-    padding: 10px;
+    background-color: rgb(114, 4, 0);
+    padding: 5px;
 }
 .sub_right, .sub_right_list{
     width: 200px;
-    padding: 10px;
+    padding: 5px;
 }
 
 .sub_right_list{
