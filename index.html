@@ -14,6 +14,131 @@
             <div class="form_main_sec">
                 <h2 style="padding-bottom: 10px;">CREATION WINDOW</h2>
                 <div class="input">
+
+                    
+                    <!-- first -->
+                    <div class="ROW"> 
+                        <div class="ITEM">
+                            <div class="celler">
+                                <div class="name">
+                                    Offering ID:
+                                </div>
+                            </div>
+                            
+                            <div class="celler">
+                                <div class="toggleButton">
+                                    <div class="togleDelivery">
+                                        <button class="buttonDefault" id="toggleOfferingSingle" title="change to multiple">single</button>
+                                        <button class="buttonSecond"  id="toggleOfferingMulti" title="change to single">Multiple</button>
+                                    </div>
+                                </div>
+                            </div>                    
+                            <div class="PrimaryOffering" id="offeringPrimary">
+                                <div class="textAreaOfferingPrimary">
+                                    <div class="sub">
+                                        <div class="celler">
+                                            <div class="name">
+                                                Primary:
+                                            </div>
+                                        </div>
+                                        <div class="celler">
+                                            <input id="primaryValue" type="text">
+                                        </div>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <div class="expansionInvites" id="offeringMulti"> 
+                        <div class="ROW" style="padding-bottom: 5px;"> 
+                            <div class="ITEM" style="border-bottom: 2px solid rgb(200, 100, 0);">
+                                <div class="celler">
+                                    <div class="name" style="background-color: rgb(200, 100, 0);" title="other offering IDs wich will be merged with primary">
+                                        Other IDs:
+                                    </div>
+                                </div>
+                                                  
+                                <div class="textAreaOfferingOthers">
+                                    <div class="sub">
+                                        <div class="celler">
+                                            <input id="otherOfferingsValue1" type="text" style="height:auto">
+                                        </div>
+                                        <div class="celler" style="padding-right: 14px;">
+                                            <input id="otherOfferingsValue2" type="text" style="height:auto">
+                                        </div>
+                                        <div class="celler">
+                                            <input id="otherOfferingsValue3" type="text" style="height:auto">
+                                        </div>
+                                        <div class="celler">
+                                            <input id="otherOfferingsValue4" type="text" style="height:auto">
+                                        </div>
+                                    </div>                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- second -->
+                    <div class="ROW"> 
+                        <div class="ITEM">
+                            <div class="celler">
+                                <div class="name">
+                                    Course code:
+                                </div>
+                            </div>
+                            <div class="celler">
+                                <div class="textArea">
+                                    <input  id="courseValue" title="insert course code">
+                                </div>
+                            </div>
+                            <div class="celler">
+                                <div class="toggleButton">
+                                    <div class="togleVersion">
+                                        <button class="buttonDefault" id="toggleCourseVersionDef" title="change to specific version">def course version</button>
+                                        <button class="buttonSecond"  id="toggleCourseVersionSpec" title="change to least version">spec course version</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="expansionVersion" id="courseVersion">
+                                <div class="celler">
+                                    <div class="textAreaSpecVersion" id="courseVersion">
+                                        <input id="versionValue">
+                                    </div>
+                                </div>                        
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- third -->
+                    <div class="ROW"> 
+                        <div class="ITEM">
+                            <div class="celler">
+                                <div class="name">
+                                    Instructor RHNID:
+                                </div>
+                            </div>
+                            <div class="celler">
+                                <div class="textArea">
+                                    <input id="instrRhnidValue"  title="insert RHNID">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ITEM">
+                            <div class="celler">
+                                <div class="name" style="padding-right:2px;">
+                                    Instructor email:
+                                </div>
+                            </div>    
+                            <div class="celler">
+                                <div class="textArea">
+                                    <input id="instrEmailValue" title="insert email">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- fourth -->
                     <div class="ROW">                    
                         <div class="celler">
                             <div class="name">
@@ -23,8 +148,8 @@
                         <div class="celler">
                             <div class="toggleButton">
                                 <div class="togleDelivery">
-                                    <button class="buttonDefault" id="toggleOnline">online</button>
-                                    <button class="buttonSecond"  id="toggleOnsite">on-site</button>
+                                    <button class="buttonDefault" id="toggleOnline" title="change to on-site">online</button>
+                                    <button class="buttonSecond"  id="toggleOnsite" title="change to online">on-site</button>
                                 </div>
                             </div>
                         </div>
@@ -39,8 +164,8 @@
                                     <div class="celler">
                                         <div class="toggleButton">
                                             <div class="togleDelivery">
-                                                <button class="buttonDefault" id="toggleBluejeansYes">YES</button>
-                                                <button class="buttonSecond"  id="toggleBluejeansNo">NO</button>
+                                                <button class="buttonDefault" id="toggleBluejeansYes" title="change to No">YES</button>
+                                                <button class="buttonSecond"  id="toggleBluejeansNo" title="change to Yes">NO</button>
                                             </div>
                                         </div>
                                     </div>
@@ -68,7 +193,7 @@
                                         </div>                                    
                                         <div class="celler">
                                             <div class="textArea">
-                                                <input id="linkValue">
+                                                <input id="linkValue" title="(optional)">
                                             </div>
                                         </div>                                    
                                     </div>
@@ -76,128 +201,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ROW">
-                        <div class="ITEM">
-                            <div class="celler">
-                                <div class="name">
-                                    Invites:
-                                </div>
-                            </div>
-                            <div class="celler">
-                                <div class="toggleButton">
-                                    <div class="togleInvites">
-                                        <button class="buttonDefault" id="toggleInvitesYes">YES</button>
-                                        <button class="buttonSecond"  id="toggleInvitesNo">NO</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="celler">
-                                <div class="toggleButton" id="onlineSpec">
-                                    <div class="togleVersion">
-                                        <button class="buttonDefault" id="toggleInvitesAll">All</button>
-                                        <button class="buttonSecond"  id="toggleInvitesInstructor">Just instructor</button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="celler">
-                                <div class="toggleButton" id="invitesLanguage">
-                                    <div class="togleVersion">
-                                        <button class="buttonDefault" id="toggleInvitesEng">ENG</button>
-                                        <button class="buttonSecond"  id="toggleInvitesOther">other</button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div id="expansionTextArea">
-                                <div class="textArea" id="textAreaInvitesLanguage">
-                                    <div class="celler">
-                                        <div>
-                                            <input id="inviteValue" placeholder="jap, viet, ...">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ROW"> 
-                        <div class="ITEM">
-                            <div class="celler">
-                                <div class="name">
-                                    Ebook enabled:
-                                </div>
-                            </div>
-                            <div class="celler">
-                                <div class="toggleButton">
-                                    <div class="togleDelivery">
-                                        <button class="buttonDefault" id="toggleEbookYes">YES</button>
-                                        <button class="buttonSecond"  id="toggleEbookNo">NO</button>
-                                    </div>
-                                </div>
-                            </div>                    
-                        </div>
-                    </div>
-                    <div class="ROW"> 
-                        <div class="ITEM">
-                            <div class="celler">
-                                <div class="name">
-                                    Offering ID:
-                                </div>
-                            </div>
-                            
-                            <div class="celler">
-                                <div class="toggleButton">
-                                    <div class="togleDelivery">
-                                        <button class="buttonDefault" id="toggleOfferingSingle">single</button>
-                                        <button class="buttonSecond"  id="toggleOfferingMulti">Multiple</button>
-                                    </div>
-                                </div>
-                            </div>                    
-                            <div class="PrimaryOffering" id="offeringPrimary">
-                                <div class="textAreaOfferingPrimary">
-                                    <div class="sub">
-                                        <div class="celler">
-                                            <div class="name">
-                                                Primary:
-                                            </div>
-                                        </div>
-                                        <div class="celler">
-                                            <input id="primaryValue" type="text" placeholder="00000000" pattern="[0-9]{8}">
-                                        </div>
-                                    </div>                            
-                                </div>
-                            </div>
-                        </div> 
-                    </div>
-                    <div class="expansionInvites" id="offeringMulti"> 
-                        <div class="ROW"> 
-                            <div class="ITEM">
-                                <div class="celler">
-                                    <div class="name">
-                                        others:
-                                    </div>
-                                </div>
-                                                  
-                                <div class="textAreaOfferingOthers">
-                                    <div class="sub">
-                                        <div class="celler">
-                                            <input id="otherOfferingsValue1" type="text" placeholder="00000000" pattern="[0-9]{8}, [0-9]{8}, [0-9]{8}, [0-9]{8}" style="height:auto">
-                                        </div>
-                                        <div class="celler" style="padding-right: 14px;">
-                                            <input id="otherOfferingsValue2" type="text" placeholder="00000000" pattern="[0-9]{8}, [0-9]{8}, [0-9]{8}, [0-9]{8}" style="height:auto">
-                                        </div>
-                                        <div class="celler">
-                                            <input id="otherOfferingsValue3" type="text" placeholder="00000000" pattern="[0-9]{8}, [0-9]{8}, [0-9]{8}, [0-9]{8}" style="height:auto">
-                                        </div>
-                                        <div class="celler">
-                                            <input id="otherOfferingsValue4" type="text" placeholder="00000000" pattern="[0-9]{8}, [0-9]{8}, [0-9]{8}, [0-9]{8}" style="height:auto">
-                                        </div>
-                                    </div>                        
-                                </div>
-                            </div>
 
-                        </div>
-                    </div>
+                    <!-- fifth -->
                     <div class="ROW"> 
                         <div class="ITEM">
                             <div class="celler">
@@ -208,37 +213,59 @@
                             
                             <div class="celler">
                                 <div class="textArea">
-                                    <input  id="regionValue" placeholder="EMEA" pattern="[EMEA, APAC, LATAM, NAMER]">
+                                    <input  id="regionValue" title="select and fill region: EMEA, NAMER, LATAM, APAC">
                                 </div>
                             </div>  
                         </div>
                     </div>
-                    <div class="ROW"> 
+
+                    <!-- sixth -->
+                    <div class="ROW">
                         <div class="ITEM">
                             <div class="celler">
                                 <div class="name">
-                                    Instructor RHNID:
+                                    Invites:
                                 </div>
                             </div>
                             <div class="celler">
-                                <div class="textArea">
-                                    <input id="instrRhnidValue"  placeholder="rhnidkekito">
+                                <div class="toggleButton">
+                                    <div class="togleInvites">
+                                        <button class="buttonDefault" id="toggleInvitesYes" title="change to No">YES</button>
+                                        <button class="buttonSecond"  id="toggleInvitesNo" title="change to Yes">NO</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="ITEM">
                             <div class="celler">
-                                <div class="name" style="padding-right:2px;">
-                                    Instructor email:
+                                <div class="toggleButton" id="onlineSpec">
+                                    <div class="togleVersion">
+                                        <button class="buttonDefault" id="toggleInvitesAll" title="change just to isntructor">All</button>
+                                        <button class="buttonSecond"  id="toggleInvitesInstructor" title="change to all">Just instructor</button>
+                                    </div>
                                 </div>
-                            </div>    
+                            </div>
+                            
                             <div class="celler">
-                                <div class="textArea">
-                                    <input id="instrEmailValue" placeholder="rhnidkekito@email">
+                                <div class="toggleButton" id="invitesLanguage">
+                                    <div class="togleVersion">
+                                        <button class="buttonDefault" id="toggleInvitesEng" title="change to other">ENG</button>
+                                        <button class="buttonSecond"  id="toggleInvitesOther" title="change to eng">other</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="expansionTextArea">
+                                <div class="textArea" id="textAreaInvitesLanguage">
+                                    <div class="celler">
+                                        <div>
+                                            <input id="inviteValue" title="jap, viet, ...">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- seventh -->
                     <div class="ROW"> 
                         <div class="ITEM">
                             <div class="celler">
@@ -248,70 +275,66 @@
                             </div>
                             <div class="celler">
                                 <div class="textArea">
-                                <input  id="studValue" placeholder="22">
+                                <input  id="studValue" title="insert integer">
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- eight -->
                     <div class="ROW"> 
                         <div class="ITEM">
                             <div class="celler">
                                 <div class="name">
-                                    Course code:
-                                </div>
-                            </div>
-                            <div class="celler">
-                                <div class="textArea">
-                                    <input  id="courseValue" placeholder="RH124">
+                                    Ebook enabled:
                                 </div>
                             </div>
                             <div class="celler">
                                 <div class="toggleButton">
-                                    <div class="togleVersion">
-                                        <button class="buttonDefault" id="toggleCourseVersionDef">def course version</button>
-                                        <button class="buttonSecond"  id="toggleCourseVersionSpec">spec course version</button>
+                                    <div class="togleDelivery">
+                                        <button class="buttonDefault" id="toggleEbookYes" title="change to No">YES</button>
+                                        <button class="buttonSecond"  id="toggleEbookNo" title="change to Yes">NO</button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="expansionVersion" id="courseVersion">
-                                <div class="celler">
-                                    <div id="versionValue" class="textAreaSpecVersion" id="courseVersion">
-                                        <input>
-                                    </div>
-                                </div>                        
-                            </div>
+                            </div>                    
                         </div>
                     </div>
+
+                    <!-- nineth -->
                     <div class="ROW"> 
                         <div class="ITEM">
                             <div class="celler">
-                                <div class="name">
+                                <div class="name" title="To get the value tripple click on the lms value">
                                     LMS time:
                                 </div>
                             </div>
                             
-                            <div class="col2">
+                            <div>
                                 <div class="textArea">
-                                    <input id="lmsValue" placeholder="lms input kekekek.3.2022">                            
+                                    <input id="lmsValue" style="width: 728px;" title="Mon, 10-Oct, 09:00 - Fri, 14-Oct, 19:00 (GMT+2) CEST   Open in new window">                            
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="ROW"> 
-                        <div class="ITEM">
+
+                    <!-- tenth -->
+                    <div class="ROW" style="height: auto;"> 
+                        <div class="ITEM" >
                             <div class="celler">
-                                <div class="name">
+                                <div class="name" title="comment textarea is resizable">
                                     Comment:
                                 </div>
                             </div>
                             
-                            <div class="col2">
+                            <div>
                                 <div class="textArea">
-                                    <input id="commentValue" placeholder="--- additional note ---" style="width: 728px;">                            
+                                    <!-- <input >                             -->
+                                    <textarea id="commentValue" title="insert additional notes (optional)" style="width: 728px; resize: vertical; height: 90px;"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="ROWstatusButtons">
                     <div class="confirmation">
@@ -321,143 +344,14 @@
                 </div>
             </div>
         </div>
+
+        <!-- ---------------------------------------------------------------------------- -->
         <div class="windowConfirmtion" id="windowConfirm">
             <div class="OVERVIEW">
                 
                 <h2>OVERVIEW WINDOW</h2>
 
                 <div class="form_main_sec">
-
-                    <div class="form_sec">
-                        <div class="form_sec_title">
-                            <h3>DELIVERY:</h3>
-                        </div>
-                        <!-- row 1 -->
-                        <div class="form_row">
-                            <div class="form_sub">
-                                <div class="sub_left">
-                                    <div class="form_name">
-                                        Delivery:    
-                                    </div>
-                                </div>
-                                <div class="sub_right">
-                                    <p id="ta_form_delivery_type">online/onsite</p>
-                                </div>
-                            </div>
-                            <div class="form_sub">
-                                <div class="sub_left">
-                                    <div class="form_name">
-                                        Region:    
-                                    </div>
-                                </div>
-                                <div class="sub_right">
-                                    <p id="ta_form_region">apac</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- row 2 -->
-                        <div id="form_exp_online">
-                            <div class="form_row">
-                                <div class="form_sub">
-                                    <div class="sub_left">
-                                        Bluejeans:
-                                    </div>
-                                    <div class="sub_right">
-                                        <p id="ta_form_bluejeans">
-                                            yes/no
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- row 3 -->
-                        <div id="form_exp_onsite">
-                            <div class="form_row">
-                                <div class="form_sub">
-                                    <div class="sub_left">
-                                        Address:
-                                    </div>
-                                    <div class="sub_right">
-                                        <p id="ta_form_address_street">street 45</p>
-                                    </div>
-                                </div>
-                                <div class="form_sub">
-                                    <div class="sub_left">
-                                        Link:
-                                    </div>
-                                    <div class="sub_right">
-                                        <p id="ta_form_address_link">www</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form_sec">
-                        <div class="form_sec_title">
-                            <h3>Invites:</h3>
-                        </div>
-                        <!-- row 1 -->
-                        <div class="form_row">
-                            <div class="form_sub">
-                                <div class="sub_left">
-                                    Send out:
-                                </div>
-                                <div class="sub_right">
-                                    <p id="ta_form_invites_sendout">
-                                        yes/no
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form_sub">
-                                <div class="sub_left">
-                                    Exp. student count:
-                                </div>
-                                <div class="sub_right">
-                                    <p id="ta_form_no_of_expected_students">9</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- row 2 -->
-                        <div id="form_exp_invites">
-                            <div class="form_row">
-                                <div class="form_sub">
-                                    <div class="sub_left">
-                                        Recipient:
-                                    </div>
-                                    <div class="sub_right">
-                                        <p id="ta_form_invites_recipient">just insturctor</p>
-                                    </div>
-                                </div>
-                                <div class="form_sub">
-                                    <div class="sub_left">
-                                        Invite language:
-                                    </div>
-                                    <div class="sub_right">
-                                        <p id="ta_form_invites_language">eng</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-
-                    <div class="form_sec">
-                        <div class="form_sec_title">
-                            <h3>Ebook:</h3>
-                        </div>
-                        <!-- row 1 -->
-                        <div class="form_row">
-                            <div class="form_sub">
-                                <div class="sub_left">
-                                    Enable:
-                                </div>
-                                <div class="sub_right">
-                                    <p id="ta_form_ebook">yes/no</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="form_sec">
                         <div class="form_sec_title">
@@ -470,7 +364,7 @@
                                     Count:
                                 </div>
                                 <div class="sub_right">
-                                    <p id="ta_form_offering_count">single/multiple</p>
+                                    <p id="ta_form_offering_count"></p>
                                 </div>
                             </div>
                             <div class="form_sub">
@@ -478,7 +372,7 @@
                                     Primary:
                                 </div>
                                 <div class="sub_right">
-                                    <p id="ta_form_offering_primary">12345678</p>
+                                    <p id="ta_form_offering_primary"></p>
                                 </div>
                             </div>
                         </div>
@@ -490,7 +384,45 @@
                                         Others:
                                     </div>
                                     <div class="sub_right_list">
-                                        <p id="ta_form_offering_others">12345678, 1235678, 1345678, 1289</p>
+                                        <p id="ta_form_offering_others"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form_sec">
+                        <div class="form_sec_title">
+                            <h3>Course:</h3>
+                        </div>
+                        <!-- row 1 -->
+                        <div class="form_row">
+                            <div class="form_sub">
+                                <div class="sub_left">
+                                    Course code:
+                                </div>
+                                <div class="sub_right">
+                                    <p id="ta_form_course_code"></p>                                    
+                                </div>
+                            </div>
+                            <div class="form_sub">
+                                <div class="sub_left">
+                                    Version:
+                                </div>
+                                <div class="sub_right">
+                                    <p id="ta_form_course_version"></p>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row 2 -->
+                        <div id="form_exp_course">
+                            <div class="form_row">
+                                <div class="form_sub">
+                                    <div class="sub_left">
+                                        If course <p id="ta_form_course_special_left"></p>
+                                    </div>
+                                    <div class="sub_right">
+                                        first week <p id="ta_form_course_special_right"></p>
                                     </div>
                                 </div>
                             </div>
@@ -508,7 +440,7 @@
                                     RHNID:
                                 </div>
                                 <div class="sub_right">
-                                    <p id="ta_form_instructor_rhnid">kekname</p>                                    
+                                    <p id="ta_form_instructor_rhnid"></p>                                    
                                 </div>
                             </div>
                             <div class="form_sub">
@@ -516,7 +448,7 @@
                                     Email:
                                 </div>
                                 <div class="sub_right">
-                                    <p id="ta_form_instructor_email">kekname@email</p>                                    
+                                    <p id="ta_form_instructor_email"></p>                                    
                                 </div>
                             </div>
                         </div>
@@ -524,39 +456,125 @@
 
                     <div class="form_sec">
                         <div class="form_sec_title">
-                            <h3>Course:</h3>
+                            <h3>DELIVERY:</h3>
                         </div>
                         <!-- row 1 -->
                         <div class="form_row">
                             <div class="form_sub">
                                 <div class="sub_left">
-                                    Course code:
+                                    <div class="form_name">
+                                        Delivery:    
+                                    </div>
                                 </div>
                                 <div class="sub_right">
-                                    <p id="ta_form_course_code">
-                                        do270
-                                    </p>                                    
+                                    <p id="ta_form_delivery_type"></p>
                                 </div>
                             </div>
                             <div class="form_sub">
                                 <div class="sub_left">
-                                    Version:
+                                    <div class="form_name">
+                                        Region:    
+                                    </div>
                                 </div>
                                 <div class="sub_right">
-                                    <p id="ta_form_course_version">newest</p>                                    
+                                    <p id="ta_form_region"></p>
                                 </div>
                             </div>
                         </div>
                         <!-- row 2 -->
-                        <div id="form_exp_course">
+                        <div id="form_exp_online">
                             <div class="form_row">
                                 <div class="form_sub">
                                     <div class="sub_left">
-                                        If course <p id="ta_form_course_special_left">DO700</p>
+                                        Bluejeans:
                                     </div>
                                     <div class="sub_right">
-                                        first week <p id="ta_form_course_special_right">do180</p>
+                                        <p id="ta_form_bluejeans"></p>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row 3 -->
+                        <div id="form_exp_onsite">
+                            <div class="form_row">
+                                <div class="form_sub">
+                                    <div class="sub_left">
+                                        Address:
+                                    </div>
+                                    <div class="sub_right">
+                                        <p id="ta_form_address_street"></p>
+                                    </div>
+                                </div>
+                                <div class="form_sub">
+                                    <div class="sub_left">
+                                        Link:
+                                    </div>
+                                    <div class="sub_right">
+                                        <p id="ta_form_address_link"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form_sec">
+                        <div class="form_sec_title">
+                            <h3>Invites:</h3>
+                        </div>
+                        <!-- row 1 -->
+                        <div class="form_row">
+                            <div class="form_sub">
+                                <div class="sub_left">
+                                    Send out:
+                                </div>
+                                <div class="sub_right">
+                                    <p id="ta_form_invites_sendout"></p>
+                                </div>
+                            </div>
+                            <div class="form_sub">
+                                <div class="sub_left">
+                                    Exp. student count:
+                                </div>
+                                <div class="sub_right">
+                                    <p id="ta_form_student_count"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row 2 -->
+                        <div id="form_exp_invites">
+                            <div class="form_row">
+                                <div class="form_sub">
+                                    <div class="sub_left">
+                                        Recipient:
+                                    </div>
+                                    <div class="sub_right">
+                                        <p id="ta_form_invites_recipient"></p>
+                                    </div>
+                                </div>
+                                <div class="form_sub">
+                                    <div class="sub_left">
+                                        Invite language:
+                                    </div>
+                                    <div class="sub_right">
+                                        <p id="ta_form_invites_language"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form_sec">
+                        <div class="form_sec_title">
+                            <h3>Ebook:</h3>
+                        </div>
+                        <!-- row 1 -->
+                        <div class="form_row">
+                            <div class="form_sub">
+                                <div class="sub_left">
+                                    Enable:
+                                </div>
+                                <div class="sub_right">
+                                    <p id="ta_form_ebook"></p>
                                 </div>
                             </div>
                         </div>
@@ -573,7 +591,7 @@
                                     Start date and time:
                                 </div>
                                 <div class="sub_right">
-                                    <p id="ta_form_durration_start">date time</p>                                    
+                                    <p id="ta_form_durration_start" title="mm/dd/yyyy; hh:mm AP"></p>                                    
                                 </div>
                             </div>
                             <div class="form_sub">
@@ -581,31 +599,31 @@
                                     End date and time:
                                 </div>
                                 <div class="sub_right">
-                                    <p id="ta_form_durration_start">date time</p>
+                                    <p id="ta_form_durration_end" title="mm/dd/yyyy; hh:mm AP"></p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form_sec">
+                    <div class="form_sec" style="height: auto;">
                         <div class="form_sec_title">
                             <h3>Comments:</h3>
                         </div>
                         <!-- row 1 -->
-                        <div class="form_row">
+                        <div class="form_row" style="height: auto;" >
                             <div class="form_sub">
                                 <div class="sub_left">
                                     Content:
                                 </div>
                                 <div class="sub_right_list">
-                                    <p id="ta_form_comments">kek info</p>                                    
+                                    <p id="ta_form_comments" ></p>                                    
                                 </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <!-- end -->
+                <!-- --------------------------------end-------------------------------- -->
                 
             </div>
             <div class="ROWstatusButtons">
