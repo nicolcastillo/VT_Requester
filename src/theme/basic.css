@@ -46,8 +46,8 @@ button:hover{
     background-color: rgb(200, 100, 0);
 }
 
-.windowReport, .styExpDeliveryOnsite, .expansionVersion{
-    /* .windowReport, .styExpDeliveryOnsite, .expansionVersion, .windowConfirmtion{ */
+/* .windowReport, .styExpDeliveryOnsite, .expansionVersion{ */
+.windowReport, .styExpDeliveryOnsite, .expansionVersion, .windowConfirmtion{
     display: none;
 }
 

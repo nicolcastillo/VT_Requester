@@ -1,35 +1,48 @@
-var DeliveryOnline = true
-var Bluejeans = true
-var Invites = true
-var InvitesToStudnets = true
-var InvitesInEng = true
-var SingleOffering = true
-var Ebook = true
-var LeastVersion = true
+var globalDeliveryOnline = true
+var globalBluejeans = true
+var globalInvites = true
+var globalInvitesToStudnets = true
+var globalInvitesInEng = true
+var globalSingleOffering = true
+var globalEbook = true
+var globalLeastVersion = true
 
-var TextAreaLocationAddress = ""
-var TextAreaLocationLink = ""
+var globalTextAreaLocationAddress = ''
+var globalTextAreaLocationLink = ''
 
-var TextAreaInviteLanguage = ""
+var globalTextAreaInviteLanguage = ''
 
-var TextAreaPrimary = ""
-var TextAreaOtherOffering1 = ""
-var TextAreaOtherOffering2 = ""
-var TextAreaOtherOffering3 = ""
-var TextAreaOtherOffering4 = ""
+var globalTextAreaPrimary = ''
+var globalTextAreaOtherOfferings = ''
 
-var TextAreaRegion = ""
+var globalTextAreaRegion = ''
 
-var TextAreaInstructorRHNID = ""
-var TextAreaInstructorEmail = ""
+var globalTextAreaInstructorRHNID = ''
+var globalTextAreaInstructorEmail = ''
 
-var TextAreaStudentCount = ""
+var globalTextAreaStudentCount = ''
 
-var TextAreaCourseCode = ""
-var TextAreaCourseVersion = ""
+var globalTextAreaCourseCode = ''
+var globalTextAreaCourseVersion = ''
+var globalCourseSpecial = ''
 
-var TextAreaLMS = ""
-var TextAreaComment = ""
+var globalTextAreaLMSstart = ''
+var globalTextAreaLMSend = ''
+var globalTextAreaComment = ''
+
+// basic  split and current date
+var currentTime = new Date()
+const month = [1,2,3,4,5,6,7,8,9,10,11,12]
+var thisMonth = month[currentTime.getMonth()]
+var thisYear = currentTime.getFullYear()
+
+// base variables
+var highlight
+
+// email
+var requester = ''
+var subject = ''
+var requestContent = ''
 
 // ERROR
 var eFlag_offering_primary = false  // must be int len 8
@@ -37,6 +50,7 @@ var eFlag_offering_other = false    // if not empty must be len 8 int
 var eFlag_course_code = false       // must be filled
 var eFlag_course_version = false    // must be filled
 var eFlag_instructor_rhnid = false  // must be filled
+var eFlag_address = false           // must be filled
 var eFlag_instructor_email = false  // must be email in format: example@email.com
 var eFlag_region = false            // must be valid region
 var eFlag_language = false          // must be filled
@@ -86,89 +100,94 @@ document.addEventListener('DOMContentLoaded', function() {
 	// OK // onClick's DELIVERY logic below:
     defButtonOnline.addEventListener('click', function() {
         handlerOnlineToOnsite()
-        DeliveryOnline = false
-        Bluejeans = false
+        globalDeliveryOnline = false
+        globalBluejeans = false
     })
     offButtonOnsite.addEventListener('click', function() {
         handlerOnsiteToOnline()
-        DeliveryOnline = true
-        Bluejeans = true
+        globalDeliveryOnline = true
+        globalBluejeans = true
     })
 
     // OK // onClick's Bluejeans logic below:
     defButtonBjYes.addEventListener('click', function() {
         handlerBluejeansYesToNo()
-        Bluejeans = false
+        globalBluejeans = false
     })
     offButtonBjNo.addEventListener('click', function() {
         handlerBluejeansNoToYes()
-        Bluejeans = true
+        globalBluejeans = true
     })
 
     // OK // onClick's Invites logic below:
     defButtonInvitesYes.addEventListener('click', function() {
         handlerInvitesYesToNo()
-        Invites = false
+        globalInvites = false
     })
     offButtonInvitesNo.addEventListener('click', function() {
         handlerInvitesNoToYes()
-        Invites = true
+        globalInvites = true
     })
 
     // OK // onClick's Invitees logic below:
     defButtonInvitesAll.addEventListener('click', function() {
         handlerShowToHide('toggleInvitesAll', 'toggleInvitesInstructor')
-        InvitesToStudnets = false
+        globalInvitesToStudnets = false
     })
     offButtonInvitesInstructor.addEventListener('click', function() {
         handlerShowToHide('toggleInvitesInstructor', 'toggleInvitesAll')
-        InvitesToStudnets = true
+        globalInvitesToStudnets = true
     })
 
     // onClick's Language logic below:
     defButtonInvitesEng.addEventListener('click', function() {
         handlerInvitesEngToOther()
-        InvitesInEng = false
+        globalInvitesInEng = false
     })
     offButtonInvitesOther.addEventListener('click', function() {
         handlerInvitesOtherToEng()
-        InvitesInEng = true
+        globalInvitesInEng = true
     })
 
     // onClick's Ebook logic below:
     defEbookYes.addEventListener('click', function(){
         handlerEbookYesToNo()
-        Ebook = false
+        globalEbook = false
     })
     offEbookNo.addEventListener('click', function(){
         handlerEbookNoToYes()
-        Ebook = true
+        globalEbook = true
     })
 
     // onClick's Offering logic below:
     defOfferingSingle.addEventListener('click', function(){
         handlerOfferingSingleToMulti()
-        SingleOffering = false
+        globalSingleOffering = false
     })
     offOfferingMulti.addEventListener('click', function(){
         handlerOfferingMultiToSingle()
-        SingleOffering = true
+        globalSingleOffering = true
     })
 
     // OK // onClick's Version logic below:
     defCourseVersionLast.addEventListener('click', function(){
         handlerVersionLastToOther()
-        LeastVersion = false
+        globalLeastVersion = false
     })
     offCourseVersionOther.addEventListener('click', function(){
         handlerVersionOtherToLast()
-        LeastVersion = true
+        globalLeastVersion = true
     })
 
     // Submission buttons
     ButtonProcess.addEventListener('click', function(){
+
+        // // TODO
+        // requester = getRequester()
+
         handlerButtonProcess()
     })
+
     ButtonEmpty.addEventListener('click', function(){
         handlerButtonEmpty()
     })
@@ -356,8 +375,9 @@ function handlerVersionOtherToLast(){
 
 // Submission buttons handlers
 function handlerButtonProcess(){
-    // handlerShowToHide('windowCreate', 'windowConfirm')
+    handlerShowToHide('windowCreate', 'windowConfirm')
     getValues()
+    createEmail()
 }
 function handlerButtonEdit(){
     handlerShowToHide('windowConfirm', 'windowCreate')
@@ -373,16 +393,16 @@ function handlerNewFromLast(){
     handlerShowToHide('windowReport', 'windowCreate')
 
     // ensures that in new creaion offerins will be inserted a new
-    var value = document.getElementById("primaryValue")
-    value.value = ""
+    var value = document.getElementById('primaryValue')
+    value.value = ''
     value = document.getElementById('otherOfferingsValue1')
-    value.value = ""  
+    value.value = ''  
     value = document.getElementById('otherOfferingsValue2')
-    value.value = ""  
+    value.value = ''  
     value = document.getElementById('otherOfferingsValue3')
-    value.value = ""  
+    value.value = ''  
     value = document.getElementById('otherOfferingsValue4')
-    value.value = "" 
+    value.value = '' 
 }
 
 function handlerButtonEmpty(){
@@ -393,36 +413,36 @@ function handlerButtonEmpty(){
     handlerEbookNoToYes()
     handlerOfferingMultiToSingle()
     handlerVersionOtherToLast()
-    var value = document.getElementById("primaryValue")
-    value.value = ""
+    var value = document.getElementById('primaryValue')
+    value.value = ''
     value = document.getElementById('addressValue')
-    value.value = "" 
+    value.value = '' 
     value = document.getElementById('linkValue')
-    value.value = ""
-    value = document.getElementById("inviteValue")
-    value.value = "" 
+    value.value = ''
+    value = document.getElementById('inviteValue')
+    value.value = '' 
     value = document.getElementById('otherOfferingsValue1')
-    value.value = ""  
+    value.value = ''  
     value = document.getElementById('otherOfferingsValue2')
-    value.value = ""  
+    value.value = ''  
     value = document.getElementById('otherOfferingsValue3')
-    value.value = ""  
+    value.value = ''  
     value = document.getElementById('otherOfferingsValue4')
-    value.value = "" 
+    value.value = '' 
     value = document.getElementById('regionValue')
-    value.value = "" 
+    value.value = '' 
     value = document.getElementById('instrRhnidValue')
-    value.value = "" 
+    value.value = '' 
     value = document.getElementById('instrEmailValue')
-    value.value = "" 
+    value.value = '' 
     value = document.getElementById('studValue')
-    value.value = "" 
+    value.value = '' 
     value = document.getElementById('courseValue')
-    value.value = "" 
+    value.value = '' 
     value = document.getElementById('lmsValue')
-    value.value = ""
+    value.value = ''
     value = document.getElementById('commentValue')
-    value.value = ""
+    value.value = ''
 }
 
 function evalErr(){
@@ -434,158 +454,220 @@ function evalErr(){
     // eFlag_course_version = false
     // eFlag_instructor_rhnid = false  
     // eFlag_instructor_email = false
+    // eFlag_address = false
     // eFlag_region = false       
     // eFlag_language = false     
     // eFlag_student_count = false     
     // eFlag_lms = false
 
-    if (eFlag_offering_primary || eFlag_offering_other|| eFlag_course_code || eFlag_course_version || eFlag_instructor_rhnid || eFlag_instructor_email || eFlag_region || eFlag_language || eFlag_student_count || eFlag_lms){
-        // console.log("Some values in error state")
-        // console.log(" - eFlag_offering_primary: " + eFlag_offering_primary)
-        // console.log(" - eFlag_offering_other: " + eFlag_offering_other)
-        // console.log(" - eFlag_course_code: " + eFlag_course_code)
-        // console.log(" - eFlag_course_version: " + eFlag_course_version)
-        // console.log(" - eFlag_instructor_rhnid: " + eFlag_instructor_rhnid)
-        // console.log(" - eFlag_instructor_email: " + eFlag_instructor_email)
-        // console.log(" - eFlag_language: " + eFlag_language)
-        // console.log(" - eFlag_region: " + eFlag_region)
-        // console.log(" - eFlag_student_count: " + eFlag_student_count)
-        // console.log(" - eFlag_lms: " + eFlag_lms)
+    if (eFlag_offering_primary || eFlag_offering_other|| eFlag_course_code || eFlag_course_version || eFlag_instructor_rhnid || eFlag_instructor_email || eFlag_address || eFlag_region || eFlag_language || eFlag_student_count || eFlag_lms){
+        // console.log(' - eFlag_offering_primary: ' + eFlag_offering_primary)
+        // console.log(' - eFlag_offering_other: ' + eFlag_offering_other)
+        // console.log(' - eFlag_course_code: ' + eFlag_course_code)
+        // console.log(' - eFlag_course_version: ' + eFlag_course_version)
+        // console.log(' - eFlag_instructor_rhnid: ' + eFlag_instructor_rhnid)
+        // console.log(' - eFlag_instructor_email: ' + eFlag_instructor_email)
+        // console.log(' - eFlag_language: ' + eFlag_language)
+        // console.log(' - eFlag_address: ' + eFlag_address)
+        // console.log(' - eFlag_region: ' + eFlag_region)
+        // console.log(' - eFlag_student_count: ' + eFlag_student_count)
+        // console.log(' - eFlag_lms: ' + eFlag_lms)
         return true // inclued error
     } else {
-        // console.log("All values in valid state")
         return false // valid values
     }
 }
 
 function validOffering(in_value){
     var mid = /^[0-9]{8}$/.test(in_value)
-    // console.log("validOffering-mid: " + mid)
     return mid
 }
 
-function getValues(){
-    var highlight
+function validEmail(in_value){
+    return /^\S+@\S+\.\S+$/.test(in_value)
+}
 
-// SECTION // OFFERING
-    var getSingleOffering = SingleOffering
-
-    var formOfferingCount = document.getElementById("ta_form_offering_count")
-    var formExpOfferings = document.getElementById("form_exp_offerings")
-
-    var getTextAreaPrimary = document.getElementById("primaryValue").value
-    var getTextAreaOtherOffering1 = document.getElementById("otherOfferingsValue1").value
-    var getTextAreaOtherOffering2 = document.getElementById("otherOfferingsValue2").value
-    var getTextAreaOtherOffering3 = document.getElementById("otherOfferingsValue3").value
-    var getTextAreaOtherOffering4 = document.getElementById("otherOfferingsValue4").value
-
+function checkPrimary(){
     var formPrimary = document.getElementById('ta_form_offering_primary')
-    var formOther = document.getElementById('ta_form_offering_others')
+    var getTextAreaPrimary = document.getElementById('primaryValue').value
 
-  // offering type: single / multi
-    if (getSingleOffering){
-        formOfferingCount.innerHTML = "Single offering"
-        formExpOfferings.style.display = 'none'
-    } else {
-        formOfferingCount.innerHTML = "Multi-offering merge"
-        formExpOfferings.style.display = 'block'
-    }
+    // // DEMO value
+    // getTextAreaPrimary = '12345678'
 
     highlight = document.getElementById('primaryValue')
-
-    // DEMO value
-    getTextAreaPrimary = 12345678
- 
-  // primary 8xInt
+    // primary 8xInt
     if(validOffering(getTextAreaPrimary)){
+        // console.log('kekkto')
         eFlag_offering_primary = false
         formPrimary.innerHTML = getTextAreaPrimary
         highlight.style.background = valBase
         formPrimary.style.background = 'inherit'
-        formPrimary.style.color = "white"
+        formPrimary.style.color = 'white'
+        globalTextAreaPrimary = getTextAreaPrimary
     } else {
+        // console.log('pekto')
         eFlag_offering_primary = true
-        formPrimary.innerHTML = "offering is not correct"
+        formPrimary.innerHTML = 'offering is not correct'
         highlight.style.background = errYellow
         formPrimary.style.background = errYellow
-        formPrimary.style.color = "black"
+        formPrimary.style.color = 'black'
     }
+    
+}
 
-    if (getSingleOffering){
-        getTextAreaOtherOffering1.innerHTML = ""
-        getTextAreaOtherOffering2.innerHTML = ""
-        getTextAreaOtherOffering3.innerHTML = ""
-        getTextAreaOtherOffering4.innerHTML = ""
-  // multiple
-    } else {
-        var arrayOthers = [getTextAreaOtherOffering1, getTextAreaOtherOffering2, getTextAreaOtherOffering3, getTextAreaOtherOffering4]
-        var skip = 0
-        var outex = 0
-        var arrayOkOthers = []
+function checkOtherOfferings(inlist){
+    var resultString = '-empty-'
 
-        // list arrayOthers
-        for (let index = 0; index < arrayOthers.length; index++) {
-            const element = arrayOthers[index];
+    var arrayOthers = inlist
 
-            // if not correct len skip
-            if (element.length != 8){
-                skip = skip + 1
+    // // DEMO value
+    // arrayOthers[0] = '10345678'
+    // arrayOthers[1] = '12345688'
+    // arrayOthers[2] = '12356678'
+    // arrayOthers[3] = '12355678'
+
+    // clearse the empty out
+    arrayOthers = inlist.filter(function(el) { return el; });
+    
+    var outex = 0
+    var arrayOkOthers = []
+
+    // list arrayOthers
+    for (let index = 0; index < arrayOthers.length; index++) {
+        const element = arrayOthers[index];
+
+        if (element.length == 0){
+            break
+        }
+
+        // check validity
+        if (validOffering(element)){
+            // must not be == to primary or in arrayOkOthers
+            if ((element == globalTextAreaPrimary) ||  arrayOkOthers.includes(element)){
+                resultString = 'Offering duplicity'
+                eFlag_offering_other = true
+                break
             } else {
-                // check validity
-                if (validOffering(element)){
-                    // must not be == to primary or in arrayOkOthers
-                    if ((element == getTextAreaPrimary) ||  arrayOkOthers.includes(element)){
-                        formOther.innerHTML = 'Offering dubplicity'
-                        eFlag_offering_other = true
-                    } else {
-                        arrayOkOthers[outex] = element
-                        outex = outex + 1
-                    }
-                } else {
-                    formOther.innerHTML = 'Offering in invalid format'
-                    eFlag_offering_other = true
-                }
+                arrayOkOthers[outex] = element
+                outex = outex + 1
+                eFlag_offering_other = false
             }
-        }
-
-
-        if (eFlag_offering_other || (skip == 4)){
-            eFlag_offering_other = true
-            highlight = document.getElementById('otherOfferingsValue1')
-            highlight.style.background = errYellow
-            highlight = document.getElementById('otherOfferingsValue2')
-            highlight.style.background = errYellow
-            highlight = document.getElementById('otherOfferingsValue3')
-            highlight.style.background = errYellow
-            highlight = document.getElementById('otherOfferingsValue4')
-            highlight.style.background = errYellow
-            // error collowring of offering fields
         } else {
-            // base color
-            var result = arrayOkOthers[0]
-            for (let i = 1; i < arrayOkOthers.length; i++) {
-                const element = arrayOkOthers[i];
-                result = ", " + element
-            }
-            formOther.innerHTML = result
+            resultString = 'Offering in invalid format'
+            eFlag_offering_other = true
+            break
         }
     }
 
-    // others check len 8 >> out 1 + ", " + 2 + ", " + 3 + ", " + 4
+    if ((outex == 0) && (eFlag_offering_other == false)){
+        resultString = 'EMPTY <<< is not valid'
+        eFlag_offering_other = true
+    }
+
+    var formOther = document.getElementById('ta_form_offering_others')
+    var highlightList = [document.getElementById('otherOfferingsValue1'), document.getElementById('otherOfferingsValue2'), document.getElementById('otherOfferingsValue3'), document.getElementById('otherOfferingsValue4')]
+        
+    if (eFlag_offering_other){
+        for (let index = 0; index < highlightList.length; index++) {
+            const element = highlightList[index];
+            element.style.background = errYellow
+        }
+        formOther.style.background = errYellow
+        formOther.style.color = 'black'
+    } else {
+        eFlag_offering_other = false
+        resultString = ""
+        for (let index = 0; index < arrayOkOthers.length; index++) {
+            const element = arrayOkOthers[index];
+            resultString = resultString + element
+            if( index != (arrayOkOthers.length - 1 )){
+                resultString = resultString + ", "
+            }
+        }
+        for (let index = 0; index < highlightList.length; index++) {
+            const element = highlightList[index];
+            element.style.background = valBase
+        }
+        formOther.style.background = 'inherit'
+        formOther.style.color = 'white'
+    }
+
+    return resultString
+}
+
+function getValuesOfferings(){
+// SECTION // OFFERING
+    var getSingleOffering = globalSingleOffering
+    var formOfferingCount = document.getElementById('ta_form_offering_count')
+    var formExpOfferings = document.getElementById('form_exp_offerings')
+    
+    // // DEMO value
+    // getSingleOffering = false
+
+    var getTextAreaOtherOffering1 = document.getElementById('otherOfferingsValue1').value
+    var getTextAreaOtherOffering2 = document.getElementById('otherOfferingsValue2').value
+    var getTextAreaOtherOffering3 = document.getElementById('otherOfferingsValue3').value
+    var getTextAreaOtherOffering4 = document.getElementById('otherOfferingsValue4').value
+
+    var listVal = [getTextAreaOtherOffering1, getTextAreaOtherOffering2, getTextAreaOtherOffering3, getTextAreaOtherOffering4]
+    
+    
+    // elements
+    var listValues = [document.getElementById('otherOfferingsValue1'), document.getElementById('otherOfferingsValue2'), document.getElementById('otherOfferingsValue3'), document.getElementById('otherOfferingsValue4')]
+            
+    // offering type: single / multi
+    if (getSingleOffering){
+        formOfferingCount.innerHTML = 'Single offering'
+        formExpOfferings.style.display = 'none'
+        
+        checkPrimary()
+        
+        for (let index = 0; index < listValues.length; index++) {
+            var element = listValues[index];
+            element.innerHTML = ''
+        }
+        globalTextAreaOtherOfferings = ''
+    } else {
+        formOfferingCount.innerHTML = 'Multi-offering merge'
+        formExpOfferings.style.display = 'block'
+        
+        checkPrimary()
+
+        var formOther = document.getElementById('ta_form_offering_others')
+        formOther.innerHTML = checkOtherOfferings(listVal)
+        globalTextAreaOtherOfferings = formOther.innerHTML
+        
+        if (eFlag_offering_other){
+            for (let index = 0; index < listValues.length; index++) {
+                const element = listValues[index];
+                element.style.background = errYellow
+            }
+        } else {
+            for (let index = 0; index < listValues.length; index++) {
+                const element = listValues[index];
+                element.style.background = valBase
+            }
+        }
+    }
 // end SECTION // OFFERING
+}
 
+function getValuesCourse(){
 // SECTION // COURSE
-    var getLeastVersion = LeastVersion
+    var getLeastVersion = globalLeastVersion
 
-    var getTextAreaCourseCode = document.getElementById("courseValue").value
-    var getTextAreaCourseVersion = document.getElementById("versionValue").value
+    var getTextAreaCourseCode = document.getElementById('courseValue').value
+    var getTextAreaCourseVersion = document.getElementById('versionValue').value
 
-    var formCourseCode = document.getElementById("ta_form_course_code")
-    var formExpCourse = document.getElementById("form_exp_course")
-    var formCourseSpecialLeft = document.getElementById("ta_form_course_special_left")
-    var formCourseSpecialRight = document.getElementById("ta_form_course_special_right")
+    var formCourseCode = document.getElementById('ta_form_course_code')
+    var formExpCourse = document.getElementById('form_exp_course')
+    var formCourseSpecialLeft = document.getElementById('ta_form_course_special_left')
+    var formCourseSpecialRight = document.getElementById('ta_form_course_special_right')
 
     highlight = document.getElementById('courseValue')
+
+    // // DEMO value
+    // getTextAreaCourseCode = 'RH124'
 
     if (getTextAreaCourseCode.length == 0){
         eFlag_course_code = true
@@ -598,33 +680,41 @@ function getValues(){
         formCourseCode.style.background = 'inherit'
         formCourseCode.style.color = 'white'
         highlight.style.background = valBase
-  // specific course code
+    // specific course code
     // HERE // special known multi-course couse
-        if (getTextAreaCourseCode.toUpperCase() == "DO700"){
+        if (getTextAreaCourseCode.toUpperCase() == 'DO700'){
             formExpCourse.style.display = 'block'
-            formCourseSpecialLeft.innerHTML = "DO700"
-            formCourseSpecialRight.innerHTML = "DO180"
-            formCourseCode.innerHTML = "DO700"
-        } else if (getTextAreaCourseCode.toUpperCase() == "DO720"){
+            formCourseSpecialLeft.innerHTML = getTextAreaCourseCode.toUpperCase()
+            formCourseSpecialRight.innerHTML = 'DO180'
+            formCourseCode.innerHTML = getTextAreaCourseCode.toUpperCase()
+
+            globalTextAreaCourseCode = getTextAreaCourseCode
+            globalCourseSpecial = 'For first week of DO700 after app-creation set on ROL DO180.'
+
+        } else if (getTextAreaCourseCode.toUpperCase() == 'DO720'){
             formExpCourse.style.display = 'block'
-            formCourseSpecialLeft.innerHTML = "DO720"
-            formCourseSpecialRight.innerHTML = "DO180"
-            formCourseCode.innerHTML = "DO720"
+            formCourseSpecialLeft.innerHTML = getTextAreaCourseCode.toUpperCase()
+            formCourseSpecialRight.innerHTML = 'DO180'
+            formCourseCode.innerHTML = getTextAreaCourseCode.toUpperCase()
+
+            globalTextAreaCourseCode = getTextAreaCourseCode
+            globalCourseSpecial = 'For first week of DO720 after app-creation set on ROL DO180.'
         } else {
-    // basic offerings
+    // basic course
             formExpCourse.style.display = 'none'
-            formCourseSpecialLeft.innerHTML = ""
-            formCourseSpecialRight.innerHTML = ""
+            formCourseSpecialLeft.innerHTML = ''
+            formCourseSpecialRight.innerHTML = ''
             formCourseCode.innerHTML = getTextAreaCourseCode
+            globalTextAreaCourseCode = getTextAreaCourseCode
         }
     }
 
-    var formCourseVersion = document.getElementById("ta_form_course_version")
-    
+    var formCourseVersion = document.getElementById('ta_form_course_version')
+
     highlight = document.getElementById('versionValue')
 
     if (getLeastVersion){
-        formCourseVersion.innerHTML = "newest version"
+        formCourseVersion.innerHTML = 'newest version'        
         highlight.style.background = valBase
         formCourseVersion.style.background = 'inherit'
         formCourseVersion.style.color = 'white'
@@ -647,44 +737,53 @@ function getValues(){
             formCourseVersion.style.background = 'inherit'
             formCourseVersion.style.color = 'white'
             formCourseVersion.innerHTML = getTextAreaCourseVersion
-            
+            globalTextAreaCourseVersion = getTextAreaCourseVersion
         }
     }
-
-    // TODO verison
-
 // end SECTION // COURSE
+}
 
-// SECTION // INSTRUCTOR
-    var getTextAreaInstructorRHNID = document.getElementById("instrRhnidValue").value
-    var getTextAreaInstructorEmail = document.getElementById("instrEmailValue").value
+function getValuesInstructor(){
+    // SECTION // INSTRUCTOR
+    var getTextAreaInstructorRHNID = document.getElementById('instrRhnidValue').value
+    var getTextAreaInstructorEmail = document.getElementById('instrEmailValue').value
+
+    // // DEMO values
+    // getTextAreaInstructorRHNID = 'some_rhnid'
+    // getTextAreaInstructorEmail = 'some@email.cz'
     
   // RHNID
     var formInstructorRHNID = document.getElementById('ta_form_instructor_rhnid')
 
-    highlight = document.getElementById("instrRhnidValue")
+    highlight = document.getElementById('instrRhnidValue')
     if (getTextAreaInstructorRHNID.length == 0){
         eFlag_instructor_rhnid = true
-        highlight.style.background = errYellow
         formInstructorRHNID.innerHTML = 'EMPTY <<< is not valid'
-        formInstructorRHNID.style.background = errYellow
-        formInstructorRHNID.style.color = "black"
+    } else if (getTextAreaInstructorRHNID.includes(' ')){
+        eFlag_instructor_rhnid = true
+        formInstructorRHNID.innerHTML = 'space <<< is not valid'
     } else {
         eFlag_instructor_rhnid = false
         highlight.style.background = valBase
         formInstructorRHNID.innerHTML = getTextAreaInstructorRHNID
-        formInstructorRHNID.style.backgroundColor = "inherit"
-        formInstructorRHNID.style.color = "white"
+        globalTextAreaInstructorRHNID = getTextAreaInstructorRHNID
+        formInstructorRHNID.style.backgroundColor = 'inherit'
+        formInstructorRHNID.style.color = 'white'
+    }
+    if (eFlag_instructor_rhnid){
+        highlight.style.background = errYellow
+        formInstructorRHNID.style.background = errYellow
+        formInstructorRHNID.style.color = 'black'
     }
     
   // Email
     var formInstructorEmail = document.getElementById('ta_form_instructor_email')
-    var testVal = /^\S+@\S+\.\S+$/.test(getTextAreaInstructorEmail)
-
+    
     highlight = document.getElementById('instrEmailValue')
 
-    if (testVal){
+    if (validEmail(getTextAreaInstructorEmail)){
         formInstructorEmail.innerHTML = getTextAreaInstructorEmail
+        globalTextAreaInstructorEmail = getTextAreaInstructorEmail
         eFlag_instructor_email = false
         formInstructorEmail.style.background = 'inherit'
         formInstructorEmail.style.color = 'white'
@@ -693,7 +792,7 @@ function getValues(){
     } else {
         if (getTextAreaInstructorEmail.length == 0) getTextAreaInstructorEmail = 'EMPTY'
         eFlag_instructor_email = true
-        formInstructorEmail.innerHTML = getTextAreaInstructorEmail + " <<< not in valid"
+        formInstructorEmail.innerHTML = getTextAreaInstructorEmail + ' <<< not in valid'
         formInstructorEmail.style.background = errYellow
         formInstructorEmail.style.color = 'black'
         highlight.style.background = errYellow
@@ -701,115 +800,209 @@ function getValues(){
 
     // email pattern match must include 1+ signs '@' 1+ signs '.' and 1+ signs
 // end SECTION // INSTRUCTOR
+}
 
-// SECTION // DELIVERY
-    var getDeliveryOnline = DeliveryOnline
-    var getBluejeans = Bluejeans
+function getValuesRegion(){
+  // region selection
+  var getTextAreaRegion = document.getElementById('regionValue').value
 
-    var getTextAreaRegion = document.getElementById("regionValue").value
+  // HERE // List of reagions
+  var arrayAllRegions = ['APAC', 'LATAM', 'NAMER', 'EMEA']
+  var formRegion = document.getElementById('ta_form_region')
 
-    // TODO // address must be inserted
-    var getTextAreaLocationAddress = document.getElementById("addressValue").value
-    var getTextAreaLocationLink = document.getElementById("linkValue").value
+//   // DEMO value
+//   getTextAreaRegion = 'emea'
 
-    var formDeliveryType = document.getElementById("ta_form_delivery_type")
-    var formExpOnline = document.getElementById("form_exp_online")
-    var formBluejeans = document.getElementById("ta_form_bluejeans")
+  highlight = document.getElementById('regionValue')
 
-    var formExpOnsite = document.getElementById("form_exp_onsite")
-    var formOnsiteAddress = document.getElementById("ta_form_address_street")
-    var formOnsiteLink = document.getElementById("ta_form_address_link")
+  getTextAreaRegion = getTextAreaRegion.toUpperCase()
+  if (arrayAllRegions.includes(getTextAreaRegion)){
+      formRegion.innerHTML = getTextAreaRegion
+      globalTextAreaRegion = getTextAreaRegion
+      eFlag_region = false
+
+      highlight.style.backgroundColor = valBase
+
+      formRegion.style.background = 'inherit'
+      formRegion.style.color = 'white'
+
+  } else {
+      eFlag_region = true
+
+      if (getTextAreaRegion==''){
+          getTextAreaRegion = 'empty'
+          
+      }
+      formRegion.innerHTML = getTextAreaRegion + ' <<< is not valid'
+      formRegion.style.background = errYellow
+      formRegion.style.color = 'black'
+
+      highlight.style.backgroundColor = errYellow
+  }
+}
+
+function getValuesDelivery(){
+    // SECTION // DELIVERY
+    var getDeliveryOnline = globalDeliveryOnline
+    var getBluejeans = globalBluejeans
+
+    var getTextAreaLocationAddress = document.getElementById('addressValue').value
+    var getTextAreaLocationLink = document.getElementById('linkValue').value
+
+    var formDeliveryType = document.getElementById('ta_form_delivery_type')
+    var formExpOnline = document.getElementById('form_exp_online')
+    var formBluejeans = document.getElementById('ta_form_bluejeans')
+
+    var formExpOnsite = document.getElementById('form_exp_onsite')
+    var formOnsiteAddress = document.getElementById('ta_form_address_street')
+    var formOnsiteLink = document.getElementById('ta_form_address_link')
   // online / onsite
     if (getDeliveryOnline){
-        formDeliveryType.innerHTML = "online"
+        formDeliveryType.innerHTML = 'online'
         formExpOnline.style.display = 'block'
         formExpOnsite.style.display = 'none'
     
   // bluejeans yes/no
         if(getBluejeans){
-            formBluejeans.innerHTML = "Yes"
+            formBluejeans.innerHTML = 'Yes'
         } else {
-            formBluejeans.innerHTML = "No"
+            formBluejeans.innerHTML = 'No'
         }
 
-        formOnsiteAddress.innerHTML = ""
-        formOnsiteLink.innerHTML = ""
+        formOnsiteAddress.innerHTML = ''
+        formOnsiteLink.innerHTML = ''
+
+        globalTextAreaLocationAddress = ''
+        globalTextAreaLocationLink = ''
+
     } else {
-        formDeliveryType.innerHTML = "onsite"
+        formDeliveryType.innerHTML = 'onsite'
         formExpOnline.style.display = 'none'
         formExpOnsite.style.display = 'block'
   // location addres and link
-        formOnsiteAddress.innerHTML = getTextAreaLocationAddress
-        formOnsiteLink.innerHTML = getTextAreaLocationLink
+        highlight = document.getElementById('addressValue')
+        if (getTextAreaLocationAddress.length == 0){
+            eFlag_address = true
+            formOnsiteAddress.innerHTML = 'EMPTY <<< is not valid'
 
-        formBluejeans.innerHTML = ""
-    }
-  // region selection
-    // HERE // List of reagions
-    var arrayAllRegions = ["APAC", "LATAM", "NAMER", "EMEA"]
-    var formRegion = document.getElementById("ta_form_region")
-
-    // DEMO value
-    getTextAreaRegion = "emea"
-
-    highlight = document.getElementById("regionValue")
-
-    getTextAreaRegion = getTextAreaRegion.toUpperCase()
-    if (arrayAllRegions.includes(getTextAreaRegion)){
-        formRegion.innerHTML = getTextAreaRegion
-        eFlag_region = false
-
-        highlight.style.backgroundColor = valBase
-
-        formRegion.style.background = 'inherit'
-        formRegion.style.color = 'white'
-
-    } else {
-        eFlag_region = true
-
-        if (getTextAreaRegion==""){
-            getTextAreaRegion = "empty"
-            
+            formOnsiteAddress.style.background = errYellow
+            formOnsiteAddress.style.color = 'black'
+            highlight.style.background = errYellow
+        } else {
+            eFlag_address = false
+            formOnsiteAddress.innerHTML = getTextAreaLocationAddress
+            globalTextAreaLocationAddress = getTextAreaLocationAddress
+            formOnsiteAddress.style.background = 'inherit'
+            formOnsiteAddress.style.color = 'white'
+            highlight.style.background = valBase
         }
-        formRegion.innerHTML = getTextAreaRegion + " <<< is not valid"
-        formRegion.style.background = errYellow
-        formRegion.style.color = 'black'
+        formOnsiteLink.innerHTML = getTextAreaLocationLink
+        globalTextAreaLocationLink = getTextAreaLocationLink
+        formBluejeans.innerHTML = ''
+    }
+    getValuesRegion()
+// end SECTION // DELIVERY
+}
+
+function getValuesEbook(){
+// SECTION // Ebook
+    var getEbook = globalEbook
+
+    var formEbook = document.getElementById('ta_form_ebook')
+    if(getEbook){
+        formEbook.innerHTML = 'yes enable'
+    } else {
+        formEbook.innerHTML = 'no disable'
+    }
+// end SECTION // Ebook
+}
+
+function getValuesComment(){    
+// SECTION // Comments
+        var getTextAreaComment = document.getElementById('commentValue').value
+    
+        var formComment = document.getElementById('ta_form_comments')
+        if (getTextAreaComment.length == 0) getTextAreaComment = 'none'
+        formComment.innerHTML = getTextAreaComment.replace(/(\r\n|\n|\r)/gm, '<br>')
+        var whileCheck = true
+        while (whileCheck){
+            if(!formComment.innerHTML.includes('<br><br><br>')){
+                whileCheck = false
+            }
+            formComment.innerHTML = formComment.innerHTML.replace('<br><br><br>', '<br><br>')
+        }
+        globalTextAreaComment = formComment.innerHTML
+// end SECTION // Comments
+}
+
+function getValuesStudentCount(){
+// student count
+    var getTextAreaStudentCount = document.getElementById('studValue').value
+
+    // // DEMO value
+    // getTextAreaStudentCount = '0'
+
+    var formStudentCount = document.getElementById('ta_form_student_count')
+    highlight = document.getElementById('studValue')
+
+    if ((getTextAreaStudentCount == '') && (parseInt(getTextAreaStudentCount) != 0)){
+    
+        eFlag_student_count = true
+
+        formStudentCount.innerHTML = 'EMPTY <<< is not valid'
+        formStudentCount.style.background = errYellow
+        formStudentCount.style.color = 'black'
 
         highlight.style.backgroundColor = errYellow
+    } else {
+        console.log('gvsc form')
+        formStudentCount.innerHTML = parseInt(getTextAreaStudentCount)
+        globalTextAreaStudentCount = getTextAreaStudentCount
+
+        eFlag_student_count = false
+
+        formStudentCount.style.background = 'inherit'
+        formStudentCount.style.color = 'white'
+        highlight.style.backgroundColor = valBase
     }
-// end SECTION // DELIVERY
+}
 
+function getValuesInvites(){
 // SECTION // INVITES
-    var getInvites = Invites   
-    var getInvitesToStudnets = InvitesToStudnets
-    var getInvitesInEng = InvitesInEng
+    var getInvites = globalInvites   
+    var getInvitesToStudnets = globalInvitesToStudnets
+    var getInvitesInEng = globalInvitesInEng
 
-    var getTextAreaStudentCount = document.getElementById("studValue").value
-    var getTextAreaInviteLanguage = document.getElementById("inviteValue").value
+    var getTextAreaInviteLanguage = document.getElementById('inviteValue').value
 
-    var formSendOut = document.getElementById("ta_form_invites_sendout")
-    var formExpInvites = document.getElementById("form_exp_invites")
+    var formSendOut = document.getElementById('ta_form_invites_sendout')
+    var formExpInvites = document.getElementById('form_exp_invites')
 
     var formRecipient = document.getElementById('ta_form_invites_recipient')
     var formLanguage = document.getElementById('ta_form_invites_language')
 
-  // sendout y/n
+    // sendout y/n
     if (getInvites){
-        formSendOut.innerHTML = "Yes"
+        formSendOut.innerHTML = 'Yes'
         formExpInvites.style.display = 'block'
 
         if (getInvitesToStudnets){
-            formRecipient.innerHTML = "instructor and students"
+            formRecipient.innerHTML = 'instructor and students'
         } else {
-            formRecipient.innerHTML = "just instructor"
+            formRecipient.innerHTML = 'just instructor'
         }
 
+        highlight = document.getElementById('inviteValue')
+
         if (getInvitesInEng){
-            formLanguage.innerHTML = "Eng"
+            formLanguage.innerHTML = 'Eng'
+
+            eFlag_language = false
+            highlight.style.background = valBase
+            formLanguage.style.background = 'inherit'
+            formLanguage.style.color = 'white'
+
         } else {
-
-            highlight = document.getElementById('inviteValue')
-
             if (getTextAreaInviteLanguage.length == 0){
                 eFlag_language = true
 
@@ -827,251 +1020,376 @@ function getValues(){
                 formLanguage.style.color = 'white'
             }
         }
-
     } else {
-        formSendOut.innerHTML = "No"
+        formSendOut.innerHTML = 'No'
         formExpInvites.style.display = 'none'
-        formRecipient.innerHTML = ""
-        formLanguage.innerHTML = ""
+        formRecipient.innerHTML = ''
+        formLanguage.innerHTML = ''
     }
+    globalTextAreaInviteLanguage = formLanguage.innerHTML
 
-  // student count
-
-    // DEMO value
-    getTextAreaStudentCount = 0
-
-    var formStudentCount = document.getElementById("ta_form_student_count")
-    highlight = document.getElementById("studValue")
-
-    if ((getTextAreaStudentCount == "") && (parseInt(getTextAreaStudentCount) != 0)){
-        eFlag_student_count = true
-
-        getTextAreaStudentCount = "empty"
-
-        formStudentCount.innerHTML = getTextAreaStudentCount + " <<< is not valid"
-        formStudentCount.style.background = errYellow
-        formStudentCount.style.color = 'black'
-
-        highlight.style.backgroundColor = errYellow
-    } else {
-        formStudentCount.innerHTML = getTextAreaStudentCount
-
-        // NOTE: if err paint >> depaint when fixed
-        eFlag_student_count = false
-        formStudentCount.style.background = 'inherit'
-        formStudentCount.style.color = 'white'
-
-        highlight.style.backgroundColor = valBase
-    }
+   getValuesCourse()
 // end SECTION // INVITES
+}
 
-// SECTION // Ebook
-    var getEbook = Ebook
+function getValuesDuration(){
+    // SECTION // DURATION (lms)
+    var getTextAreaLMS = document.getElementById('lmsValue').value
 
-    var formEbook = document.getElementById('ta_form_ebook')
-    if(getEbook){
-        formEbook.innerHTML = "yes enable"
-    } else {
-        formEbook.innerHTML = "no disable"
-    }
-// end SECTION // Ebook
-
-// SECTION // DURATION (lms)
-    var getTextAreaLMS = document.getElementById("lmsValue").value
-
-    // DEMO testing
-    getTextAreaLMS = "Mon, 03-Feb, 09:00 - Thu, 06-Jan, 15:00 (GMT+2) CEST   Open in new window"
+    // // DEMO testing
+    // getTextAreaLMS = 'Mon, 03-Feb, 09:00 - Thu, 06-Jan, 15:00 (GMT+2) CEST   Open in new window'
 
     // Mon, 03-Oct, 09:00 - Thu, 06-Oct, 15:00 (GMT+2) CEST   Open in new window
     // >>> 10/03/2022, 09:00 AM
     // >>> 10/06/2022, 03:00 PM
-    
-  // basic  split and current date
-    var currentTime = new Date()
-    const month = [1,2,3,4,5,6,7,8,9,10,11,12]
-    var thisMonth = month[currentTime.getMonth()]
-    var thisYear = currentTime.getFullYear()
 
     highlight = document.getElementById('lmsValue')
+    
+    if (getTextAreaLMS.length == 0){
+        eFlag_lms = true
+        highlight.style.backgroundColor = errYellow
+
+        var formStart = document.getElementById('ta_form_durration_start')
+        formStart.innerHTML = 'invalid input'
+        formStart.style.background = errYellow
+        formStart.style.color = 'black'
+
+        var formEnd = document.getElementById('ta_form_durration_end')
+        formEnd.innerHTML = 'invalid input'
+        formEnd.style.background = errYellow
+        formEnd.style.color = 'black'
+        return
+    }
 
     try {
-        var arrayLms = getTextAreaLMS.split(", ")
+        var arrayLms = getTextAreaLMS.split(', ')
 
       // START DATE and time
-        var arrayDateStart = arrayLms[1].split("-")
-        var arrayTimeStart = arrayLms[2].split(" ")
-        arrayTimeStart = arrayTimeStart[0].split(":")
-        var dayPartStart = "AM"
+        var arrayDateStart = arrayLms[1].split('-')
+        var arrayTimeStart = arrayLms[2].split(' ')
+        arrayTimeStart = arrayTimeStart[0].split(':')
+        var dayPartStart = 'AM'
 
         if(parseInt(arrayTimeStart[0])>11){
-            dayPartStart = "PM"
+            dayPartStart = 'PM'
             if(parseInt(arrayTimeStart[0]) > 12){
                 mid = parseInt(arrayTimeStart[0]) - 12
-                arrayTimeStart[0] = "0" + mid
+                arrayTimeStart[0] = '0' + mid
             }
         }
 
         arrayDateStart[2] = getMonth(arrayDateStart[1])
         if (parseInt(arrayDateStart[2]) < 10){
-            arrayDateStart[2] = "0" + arrayDateStart[2]
+            arrayDateStart[2] = '0' + arrayDateStart[2]
         }
 
-        var formStart = document.getElementById("ta_form_durration_start")
+        var formStart = document.getElementById('ta_form_durration_start')
         var startYear = thisYear
         if (arrayDateStart[2] < thisMonth){
             startYear = thisYear + 1
         }
-        formStart.innerHTML = arrayDateStart[2]+"/"+arrayDateStart[0]+"/"+startYear+"; "+ arrayTimeStart[0]+":"+arrayTimeStart[1]+" "+dayPartStart
+        formStart.innerHTML = arrayDateStart[2]+'/'+arrayDateStart[0]+'/'+startYear+'; '+ arrayTimeStart[0]+':'+arrayTimeStart[1]+' '+dayPartStart
+        globalTextAreaLMSstart = formStart.innerHTML
         formStart.style.background = 'inherit'
         formStart.style.color = 'white'
 
       // END DATE and time
-        var arrayDateEnd = arrayLms[3].split("-")
-        var arrayTimeEnd = arrayLms[4].split(" ")
-        arrayTimeEnd = arrayTimeEnd[0].split(":")
-        var dayPartEnd = "AM"
+        var arrayDateEnd = arrayLms[3].split('-')
+        var arrayTimeEnd = arrayLms[4].split(' ')
+        arrayTimeEnd = arrayTimeEnd[0].split(':')
+        var dayPartEnd = 'AM'
 
         if(parseInt(arrayTimeEnd[0])>11){
-            dayPartEnd = "PM"
+            dayPartEnd = 'PM'
             if(parseInt(arrayTimeEnd[0]) > 12){
                 mid = parseInt(arrayTimeEnd[0]) - 12
-                arrayTimeEnd[0] = "0" + mid
+                arrayTimeEnd[0] = '0' + mid
             }
         }
 
         arrayDateEnd[2] = getMonth(arrayDateEnd[1])
         if (parseInt(arrayDateEnd[2]) < 10){
-            arrayDateEnd[2] = "0" + arrayDateEnd[2]
+            arrayDateEnd[2] = '0' + arrayDateEnd[2]
         }
 
-        var formEnd = document.getElementById("ta_form_durration_end")
+        var formEnd = document.getElementById('ta_form_durration_end')
         var endYear = startYear
         if (arrayDateEnd[2] < arrayDateStart[2]){
             endYear = startYear + 1
         }
-        formEnd.innerHTML = arrayDateEnd[2]+"/"+arrayDateEnd[0]+"/"+endYear+"; "+ arrayTimeEnd[0]+":"+arrayTimeEnd[1]+" "+dayPartEnd
+        formEnd.innerHTML = arrayDateEnd[2]+'/'+arrayDateEnd[0]+'/'+endYear+'; '+ arrayTimeEnd[0]+':'+arrayTimeEnd[1]+' '+dayPartEnd
+        globalTextAreaLMSend = formEnd.innerHTML
         formEnd.style.background = 'inherit'
         formEnd.style.color = 'white'
 
         highlight.style.backgroundColor = valBase
-
     }
     catch (e) {
         console.log(e)
         eFlag_lms = true
         highlight.style.backgroundColor = errYellow
 
-        var formStart = document.getElementById("ta_form_durration_start")
+        var formStart = document.getElementById('ta_form_durration_start')
         formStart.innerHTML = 'invalid input'
         formStart.style.background = errYellow
         formStart.style.color = 'black'
 
-        var formEnd = document.getElementById("ta_form_durration_end")
+        var formEnd = document.getElementById('ta_form_durration_end')
         formEnd.innerHTML = 'invalid input'
         formEnd.style.background = errYellow
         formEnd.style.color = 'black'
     }
 // end SECTION // DURATION (lms)
+}
 
+function getValues(){
+    getValuesOfferings()
+    getValuesCourse()
+    getValuesInstructor()
+    getValuesDelivery()
+    getValuesEbook()
+    getValuesInvites()
+    getValuesStudentCount()
+    getValuesDuration()
+    getValuesComment()
 
-// SECTION // Comments
-    var getTextAreaComment = document.getElementById("commentValue").value
-
-    var formComment = document.getElementById('ta_form_comments')
-    if (getTextAreaComment.length == 0) getTextAreaComment = 'none'
-    formComment.innerHTML = getTextAreaComment.replace(/(\r\n|\n|\r)/gm, "<br>")
-// end SECTION // Comments
-
+// SECTION // Validity check        
     var evalButtonConfirm = document.getElementById('buttonConfirm')
-    highlightEdit = document.getElementById('buttonEdit')
-
-// SECTION // Validity check
+    var highlightEdit = document.getElementById('buttonEdit')
     // evalErr true >> has error >> lock confirm
     if(evalErr()){
-
         document.getElementById('buttonConfirm').disabled = true
         evalButtonConfirm.style.backgroundColor = lockedGrey
         highlightEdit.style.backgroundColor = errYellow
-        console.log("was true >> some err")
     } else {
-        console.log("was false >> no err")
         document.getElementById('buttonConfirm').disabled = false
         evalButtonConfirm.style.backgroundColor = 'inherit'
         highlightEdit.style.backgroundColor = 'inherit'
-
     }
 // end SECTION // Validity check
-
-// TODO // values return to global
-    // formStart.innerHTML =  thisYear// works
     
-    // here
+//   //debug global log
+//     console.log('global:')
 
-    // DeliveryOnline = true
-    // Bluejeans = true
-    // Invites = true
-    // InvitesToStudnets = true
-    // InvitesInEng = true
-    // SingleOffering = true
-    // Ebook = true
-    // LeastVersion = true
+//     console.log('globalDeliveryOnline: ' + globalDeliveryOnline)
 
-    // TextAreaLocationAddress = ""
-    // TextAreaLocationLink = ""
-
-    // TextAreaInviteLanguage = ""
-
-    // TextAreaPrimary = ""
-    // TextAreaOtherOffering1 = ""
-    // TextAreaOtherOffering2 = ""
-    // TextAreaOtherOffering3 = ""
-    // TextAreaOtherOffering4 = ""
-
-    // TextAreaRegion = ""
-
-    // TextAreaInstructorRHNID = ""
-    // TextAreaInstructorEmail = ""
+//     console.log('globalBluejeans: ' + globalBluejeans)
+//     console.log('globalInvites: ' + globalInvites)
     
-    // TextAreaStudentCount = ""
-    
-    // TextAreaCourseCode = ""
-    // TextAreaCourseVersion = ""
-    
-    // TextAreaLMS = ""
+//     console.log('globalInvitesToStudnets: ' + globalInvitesToStudnets)
+//     console.log('globalInvitesInEng: ' + globalInvitesInEng)
+//     console.log('globalSingleOffering: ' + globalSingleOffering)
+//     console.log('globalEbook: ' + globalEbook)
+//     console.log('globalLeastVersion: ' + globalLeastVersion)
 
-    // TextAreaComment = ""
+//     console.log('globalTextAreaLocationAddress: ' + globalTextAreaLocationAddress)
+//     console.log('globalTextAreaLocationLink: ' + globalTextAreaLocationLink)
+//     console.log('globalTextAreaInviteLanguage: ' + globalTextAreaInviteLanguage)
+//     console.log('globalTextAreaPrimary: ' + globalTextAreaPrimary)
+//     console.log('globalTextAreaOtherOfferings: ' + globalTextAreaOtherOfferings)
+//     console.log('globalTextAreaRegion: ' + globalTextAreaRegion)
+//     console.log('globalTextAreaInstructorRHNID: ' + globalTextAreaInstructorRHNID)
+//     console.log('globalTextAreaInstructorEmail: ' + globalTextAreaInstructorEmail)
+    
+//     console.log('globalTextAreaStudentCount: ' + globalTextAreaStudentCount)
+    
+//     console.log('globalTextAreaCourseCode: ' + globalTextAreaCourseCode)
+//     console.log('globalTextAreaCourseVersion: ' + globalTextAreaCourseVersion)
 
+//     console.log('globalTextAreaLMSstart: ' + globalTextAreaLMSstart)
+//     console.log('globalTextAreaLMSend: ' + globalTextAreaLMSend)
+    
+//     console.log('globalTextAreaComment: ' + globalTextAreaComment)
+
+//     console.log('global end.')
 }
 
 function isNumeric(str) {
-    if (typeof str != "string") return false // we only process strings!  
+    if (typeof str != 'string') return false // we only process strings!  
     return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
            !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
   }
 
 function getMonth(string_month){
-    // console.log(string_month)
-    const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     return month.indexOf(string_month)+1
 }
 
-// TODO // function make message
-/// get creatr email
-/// title = "vtrequest for " + "primary"
-/// comment
+// // TODO - get requester email
+// function getRequesterManual(){
+//     let text;
+//     let person = prompt("Please enter your email:", "example@email.com")
+//     if (person == null || person == "") {
+//         text = getRequesterManual()
+//     } else {
+//         text = person
+//     }
+//     document.getElementById('requester').innerHTML = text
+// }
 
-/// request type:
-/// // 0 - basic request
-/// // 1 - post creation rol edit
-/// // 2 - merge request
-/// // 3 - specific version
+// function getRequester(){
+//     var resStr = ''
 
-/// offering
-/// Delivery
-/// Invites
-/// instructor
-/// Ebook
+//     chrome.runtime.sendMessage({}, function(response){
+//         // DEMO
+//         response = 'sat_megamenu_label=; AMCV_945D02BE532957400A490D4C%40AdobeOrg=-1124106680%7CMCIDTS%7C19280%7CMCMID%7C49079226596255370764287643790345599981%7CMCAAMLH-1666453524%7C6%7CMCAAMB-1666453524%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1665855924s%7CNONE%7CMCAID%7CNONE%7CvVersion%7C5.2.0%7CMCSYNCSOP%7C411-19284; rh_user=ncastill%40redhat.com|Nicol|P|; rh_user_id=53998540; rh_sso_session=1; arp_scroll_position=0;'
+        
+//         if (response == null){
+//             // add allert to insert manually
+//             getRequesterManual()
+// 			return 'manual@redhat.com'
+//         }
+            
+//         // rh_user=ncastill%40redhat.com|Nicol|P|;  
+//         resStr = response.user.split('=')[1].split('|')[0].replace('%40','@')
+//         requester = resStr
+//     })
 
-/// thanks (request creator email)
+//     return resStr
+// }
 
-// TODO // open email and create email.
+
+// async function handler_cookie(){
+// 	var rh_user = await chrome.cookies.get({url: "https://rol.redhat.com/rol/app/classes", name:"rh_user"})
+//         if (rh_user == null) return getRequesterManual()
+//     return {rh_user: user.value}
+// }
+
+// chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
+//     handler_cookie().then(sendResponse)
+//     return true
+// })
+
+
+function createEmail(){
+    var subjectElement = document.getElementById('subject')
+    subject = 'VT creation request for ' + globalTextAreaPrimary
+    subjectElement.innerHTML = subject
+
+    var ticketType = 'was sth'
+    
+    var tmpIndex = 0
+    var tmpList = ['']
+
+    var tmpStr
+
+    // done
+    var resComments = ''
+    if (globalCourseSpecial.length){
+        resComments = globalCourseSpecial + '<br><br>'
+        tmpList[tmpIndex] = 'comment'
+        tmpIndex += 1
+        if (globalTextAreaComment.length > 0 && globalTextAreaComment != 'none'){
+            resComments = resComments + '----<br>' + globalTextAreaComment + '<br>----<br>'
+        }
+    }
+
+    // done
+    var resOffering = 'Offering ID: ' + globalTextAreaPrimary + '<br>'
+    if (!globalSingleOffering){
+        tmpList[tmpIndex] = 'multi'
+        tmpIndex += 1
+        resOffering = resOffering + 'Other offerings: ' + globalTextAreaOtherOfferings
+    }
+    
+    // done
+    var resCourse = 'Course code: ' + globalTextAreaCourseCode
+    if (!globalLeastVersion){
+        resCourse += '---> version: ' + globalTextAreaCourseVersion
+        tmpList[tmpIndex] = 'spec.ver'
+        tmpIndex += 1
+    }
+    resCourse += '<br><br>'
+
+    // done
+    var resInstructor = 'Instructor RHNID: ' + globalTextAreaInstructorRHNID + '<br>'
+    resInstructor += 'Instructor EMAIL: ' + globalTextAreaInstructorEmail + '<br><br>'
+    
+    // TODO
+    var resDelivery = 'Delivery: '
+    if (!globalDeliveryOnline){
+        resDelivery += 'ONSITE' + '<br>'
+        resDelivery += 'Location Address: ' + globalTextAreaLocationAddress + '<br>'
+        if (globalTextAreaLocationLink.length > 0){
+            resDelivery += 'Location Link: ' + globalTextAreaLocationLink + '<br>'
+        }
+        tmpList[tmpIndex] = 'delivery'
+        tmpIndex += 1
+    } else {
+        resDelivery += 'online &'
+        if (!globalBluejeans){
+            resDelivery += ' no bj creation needed'
+            tmpList[tmpIndex] = 'bj'
+            tmpIndex += 1
+        } else {
+            resDelivery += ' bj creation requested'
+        }
+    }
+    resDelivery += '<br>' + 'Region: '+ globalTextAreaRegion + '<br><br>'
+    
+    var _ = false   
+    var resInvites = ''
+    if (!globalInvites){
+        resInvites += 'Do not send out invites.'
+        _ = true
+    } else {
+        resInvites = 'Send out invites '
+        if (!globalInvitesToStudnets){
+            resInvites += 'to JUST instructor'
+            _ = true
+        } else {
+            resInvites += 'to instructor and enrolled students'
+        }
+        if (!globalInvitesInEng){
+            resInvites += ' using ' + globalTextAreaInviteLanguage + ' template.'
+            _ = true
+        } else {
+            resInvites += ' using English template.'
+        }
+    }
+    if (_){
+        tmpList[tmpIndex] = 'invites'
+        tmpIndex += 1
+    }
+    resInvites += '<br><br>'
+    
+    // TODO
+    var resEbook = ''
+    if (!globalEbook){
+        resEbook += 'Disable ebook.<br><br>'
+        tmpList[tmpIndex] = 'ebook'
+        tmpIndex += 1
+    } else {
+        resEbook += 'Enable ebook.<br><br>'
+    }
+    
+    var resDurration = 'Start date & time: ' + globalTextAreaLMSstart + '<br>'
+    resDurration += 'End date & time: ' + globalTextAreaLMSend + '<br><br>'
+
+    ticketType = tmpList[0]
+    if(tmpList.length > 0){
+        for (let index = 1; index < tmpList.length; index++) {
+            const element = tmpList[index];
+            if (index != tmpList.length){
+                ticketType = ticketType + ' - '
+            }
+            ticketType = ticketType + element
+            
+        }
+    }
+    console.log('ticketType: ' + ticketType)
+    // ticketType = 'kek'
+
+    requestContent = '<br>------------<br><br>' + 'Hello team,<br>Kindly create VT as per below information:<br><br>'
+    if (ticketType.length > 0){
+        requestContent += 'Mod---> ' + ticketType + '<br><br>'
+    }
+    requestContent = requestContent + resComments + resOffering + resCourse + resInstructor + resDelivery + resInvites + resEbook + resDurration
+    requestContent = requestContent + '<br>Thank you,<br>' + requester
+
+    var contentElement = document.getElementById('requestContent')
+    contentElement.innerHTML = requestContent
+}
+
+// function sendEmail(){
+// }
