@@ -47,7 +47,7 @@ button:hover{
 }
 
 /* .windowReport, .styExpDeliveryOnsite, .expansionVersion{ */
-.windowReport, .styExpDeliveryOnsite, .expansionVersion, .windowConfirmtion{
+.windowReport, .styExpDeliveryOnsite, .expansionVersion, .windowConfirmtion, .x{
     display: none;
 }
 

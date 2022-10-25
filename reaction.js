@@ -30,6 +30,9 @@ var globalTextAreaLMSstart = ''
 var globalTextAreaLMSend = ''
 var globalTextAreaComment = ''
 
+// HERE // CC for emea
+var globalStringEmeaCC = 'Make sure to add lywillia@redhat.com and emea-training-delivery-team@redhat.com to ticket watch list.'
+
 // basic  split and current date
 var currentTime = new Date()
 const month = [1,2,3,4,5,6,7,8,9,10,11,12]
@@ -43,6 +46,9 @@ var highlight
 var requester = ''
 var subject = ''
 var requestContent = ''
+var recipient = ''
+recipient = 'nicol.castillo@seznam.cz'
+// recipient = 'Rol-support@redhat.com'
 
 // ERROR
 var eFlag_offering_primary = false  // must be int len 8
@@ -196,6 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     ButtonConfirm.addEventListener('click', function(){
         handlerButtonConfirm()
+        sendEmail()
     })
     ButtonCreateNew.addEventListener('click', function(){
         handlerButtonNew()
@@ -446,7 +453,6 @@ function handlerButtonEmpty(){
 }
 
 function evalErr(){
-
     // // debug values
     // eFlag_offering_primary = false 
     // eFlag_offering_other = false   
@@ -461,17 +467,17 @@ function evalErr(){
     // eFlag_lms = false
 
     if (eFlag_offering_primary || eFlag_offering_other|| eFlag_course_code || eFlag_course_version || eFlag_instructor_rhnid || eFlag_instructor_email || eFlag_address || eFlag_region || eFlag_language || eFlag_student_count || eFlag_lms){
-        // console.log(' - eFlag_offering_primary: ' + eFlag_offering_primary)
-        // console.log(' - eFlag_offering_other: ' + eFlag_offering_other)
-        // console.log(' - eFlag_course_code: ' + eFlag_course_code)
-        // console.log(' - eFlag_course_version: ' + eFlag_course_version)
-        // console.log(' - eFlag_instructor_rhnid: ' + eFlag_instructor_rhnid)
-        // console.log(' - eFlag_instructor_email: ' + eFlag_instructor_email)
-        // console.log(' - eFlag_language: ' + eFlag_language)
-        // console.log(' - eFlag_address: ' + eFlag_address)
-        // console.log(' - eFlag_region: ' + eFlag_region)
-        // console.log(' - eFlag_student_count: ' + eFlag_student_count)
-        // console.log(' - eFlag_lms: ' + eFlag_lms)
+        console.log(' - eFlag_offering_primary: ' + eFlag_offering_primary)
+        console.log(' - eFlag_offering_other: ' + eFlag_offering_other)
+        console.log(' - eFlag_course_code: ' + eFlag_course_code)
+        console.log(' - eFlag_course_version: ' + eFlag_course_version)
+        console.log(' - eFlag_instructor_rhnid: ' + eFlag_instructor_rhnid)
+        console.log(' - eFlag_instructor_email: ' + eFlag_instructor_email)
+        console.log(' - eFlag_language: ' + eFlag_language)
+        console.log(' - eFlag_address: ' + eFlag_address)
+        console.log(' - eFlag_region: ' + eFlag_region)
+        console.log(' - eFlag_student_count: ' + eFlag_student_count)
+        console.log(' - eFlag_lms: ' + eFlag_lms)
         return true // inclued error
     } else {
         return false // valid values
@@ -627,6 +633,11 @@ function getValuesOfferings(){
             element.innerHTML = ''
         }
         globalTextAreaOtherOfferings = ''
+        for (let index = 0; index < listValues.length; index++) {
+            const element = listValues[index];
+            element.value = ''
+        }
+        eFlag_offering_other = false
     } else {
         formOfferingCount.innerHTML = 'Multi-offering merge'
         formExpOfferings.style.display = 'block'
@@ -718,6 +729,10 @@ function getValuesCourse(){
         highlight.style.background = valBase
         formCourseVersion.style.background = 'inherit'
         formCourseVersion.style.color = 'white'
+
+        eFlag_course_version = false
+        highlight = document.getElementById('versionValue')
+        highlight.style.background = valBase
         
     } else {
         if (getTextAreaCourseVersion.length == 0){
@@ -869,6 +884,11 @@ function getValuesDelivery(){
             formBluejeans.innerHTML = 'No'
         }
 
+        eFlag_address = false
+
+        highlight = document.getElementById('addressValue')
+        highlight.style.background = valBase
+
         formOnsiteAddress.innerHTML = ''
         formOnsiteLink.innerHTML = ''
 
@@ -923,13 +943,13 @@ function getValuesComment(){
     
         var formComment = document.getElementById('ta_form_comments')
         if (getTextAreaComment.length == 0) getTextAreaComment = 'none'
-        formComment.innerHTML = getTextAreaComment.replace(/(\r\n|\n|\r)/gm, '<br>')
+        formComment.innerHTML = getTextAreaComment.replaceAll(/(\r\n|\n|\r)/gm, '<br>')
         var whileCheck = true
         while (whileCheck){
             if(!formComment.innerHTML.includes('<br><br><br>')){
                 whileCheck = false
             }
-            formComment.innerHTML = formComment.innerHTML.replace('<br><br><br>', '<br><br>')
+            formComment.innerHTML = formComment.innerHTML.replaceAll('<br><br><br>', '<br><br>')
         }
         globalTextAreaComment = formComment.innerHTML
 // end SECTION // Comments
@@ -955,7 +975,6 @@ function getValuesStudentCount(){
 
         highlight.style.backgroundColor = errYellow
     } else {
-        console.log('gvsc form')
         formStudentCount.innerHTML = parseInt(getTextAreaStudentCount)
         globalTextAreaStudentCount = getTextAreaStudentCount
 
@@ -995,10 +1014,11 @@ function getValuesInvites(){
         highlight = document.getElementById('inviteValue')
 
         if (getInvitesInEng){
-            formLanguage.innerHTML = 'Eng'
-
             eFlag_language = false
+
             highlight.style.background = valBase
+            
+            formLanguage.innerHTML = 'Eng'
             formLanguage.style.background = 'inherit'
             formLanguage.style.color = 'white'
 
@@ -1014,7 +1034,9 @@ function getValuesInvites(){
 
             } else {
                 eFlag_language = false
+
                 highlight.style.background = valBase
+                
                 formLanguage.innerHTML = getTextAreaInviteLanguage
                 formLanguage.style.background = 'inherit'
                 formLanguage.style.color = 'white'
@@ -1023,6 +1045,9 @@ function getValuesInvites(){
     } else {
         formSendOut.innerHTML = 'No'
         formExpInvites.style.display = 'none'
+        eFlag_language = false
+        highlight = document.getElementById('inviteValue')
+        highlight.style.background = valBase
         formRecipient.innerHTML = ''
         formLanguage.innerHTML = ''
     }
@@ -1123,6 +1148,7 @@ function getValuesDuration(){
         formEnd.style.color = 'white'
 
         highlight.style.backgroundColor = valBase
+        eFlag_lms = false
     }
     catch (e) {
         console.log(e)
@@ -1263,8 +1289,10 @@ function getMonth(string_month){
 
 function createEmail(){
     var subjectElement = document.getElementById('subject')
-    subject = 'VT creation request for ' + globalTextAreaPrimary
-    subjectElement.innerHTML = subject
+    subject = 'MOCK TEST TICKET: ' + 'VT creation request for ' + globalTextAreaPrimary
+
+    // DEMO
+    // subjectElement.innerHTML = subject
 
     var ticketType = 'was sth'
     
@@ -1273,26 +1301,21 @@ function createEmail(){
 
     var tmpStr
 
-    // done
+    var _ = false 
+    
     var resComments = ''
     if (globalCourseSpecial.length){
-        resComments = globalCourseSpecial + '<br><br>'
-        tmpList[tmpIndex] = 'comment'
-        tmpIndex += 1
-        if (globalTextAreaComment.length > 0 && globalTextAreaComment != 'none'){
-            resComments = resComments + '----<br>' + globalTextAreaComment + '<br>----<br>'
-        }
+        resComments = globalCourseSpecial + '<br>'
+        _ = true
     }
 
-    // done
     var resOffering = 'Offering ID: ' + globalTextAreaPrimary + '<br>'
     if (!globalSingleOffering){
         tmpList[tmpIndex] = 'multi'
         tmpIndex += 1
-        resOffering = resOffering + 'Other offerings: ' + globalTextAreaOtherOfferings
+        resOffering = resOffering + 'Other offerings: ' + globalTextAreaOtherOfferings + '<br>'
     }
     
-    // done
     var resCourse = 'Course code: ' + globalTextAreaCourseCode
     if (!globalLeastVersion){
         resCourse += '---> version: ' + globalTextAreaCourseVersion
@@ -1301,11 +1324,9 @@ function createEmail(){
     }
     resCourse += '<br><br>'
 
-    // done
     var resInstructor = 'Instructor RHNID: ' + globalTextAreaInstructorRHNID + '<br>'
     resInstructor += 'Instructor EMAIL: ' + globalTextAreaInstructorEmail + '<br><br>'
     
-    // TODO
     var resDelivery = 'Delivery: '
     if (!globalDeliveryOnline){
         resDelivery += 'ONSITE' + '<br>'
@@ -1325,9 +1346,19 @@ function createEmail(){
             resDelivery += ' bj creation requested'
         }
     }
+    if (_ || (globalTextAreaRegion=='EMEA')){
+        tmpList[tmpIndex] = 'comment'
+        tmpIndex += 1
+        resComments += globalStringEmeaCC + '<br><br>'
+    }
+
+    if (globalTextAreaComment.length > 0 && globalTextAreaComment != 'none'){
+        resComments = resComments + '----<br>' + globalTextAreaComment + '<br>----<br>'
+    }
+
     resDelivery += '<br>' + 'Region: '+ globalTextAreaRegion + '<br><br>'
     
-    var _ = false   
+    _ = false   
     var resInvites = ''
     if (!globalInvites){
         resInvites += 'Do not send out invites.'
@@ -1377,19 +1408,50 @@ function createEmail(){
             
         }
     }
-    console.log('ticketType: ' + ticketType)
-    // ticketType = 'kek'
 
-    requestContent = '<br>------------<br><br>' + 'Hello team,<br>Kindly create VT as per below information:<br><br>'
+    requestContent = /*'<br>------------<br><br>' +*/ 'Hello team,<br>Kindly create VT as per below information:<br><br>'
     if (ticketType.length > 0){
         requestContent += 'Mod---> ' + ticketType + '<br><br>'
     }
     requestContent = requestContent + resComments + resOffering + resCourse + resInstructor + resDelivery + resInvites + resEbook + resDurration
-    requestContent = requestContent + '<br>Thank you,<br>' + requester
+    requestContent = requestContent + '<br>Thank you,<br>' + requester + 'NICOL Castillo'
 
-    var contentElement = document.getElementById('requestContent')
-    contentElement.innerHTML = requestContent
+    // DEMO
+    // var contentElement = document.getElementById('requestContent')
+    // contentElement.innerHTML = requestContent
 }
 
-// function sendEmail(){
-// }
+function encodeString(in_string){
+    // in_string = in_string.replaceAll('<br>', 'HOVNO')
+    in_string = in_string.replaceAll('<br>', '\%0A')
+    in_string = in_string.replaceAll(' ', '\%20')
+    in_string = in_string.replaceAll(':', '\%3A')
+    in_string = in_string.replaceAll('(', '\%28')
+    in_string = in_string.replaceAll(')', '\%29')
+    in_string = in_string.replaceAll('@', '\%40')
+    in_string = in_string.replaceAll('&', '\%26')
+    in_string = in_string.replaceAll('_', '\%5F')
+    in_string = in_string.replaceAll('-', '\%2D')
+    in_string = in_string.replaceAll('\\', '\%5C')
+    in_string = in_string.replaceAll('.', '\%2E')
+    in_string = in_string.replaceAll('\'', '\%27')
+    return in_string
+}
+
+// TODO replace symbols and breaks (URL-encoding) -->> https://www.w3schools.com/tags/ref_urlencode.ASP
+function cleanContent(){
+    subject = encodeString(subject)
+    requestContent = encodeString(requestContent)
+    requester = encodeString(requester)
+    recipient = encodeString(recipient)
+    // console.log('request: ' + requestContent)
+}
+
+function sendEmail(){
+    var send = document.getElementById('buttonConfirm')
+    cleanContent()
+    // send.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + recipient + '&su=' + subject + '&body=' + requestContent
+    var link = 'mailto:'+recipient+'?subject='+subject+'&body='+requestContent
+    window.open(link)
+    // console.log('was clicked...')
+}
