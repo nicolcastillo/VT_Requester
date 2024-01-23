@@ -1217,45 +1217,62 @@ function getMonth(string_month){
 
 function createEmail(){
     var subjectElement = document.getElementById('subject')
-    subject = 'MOCK TEST TICKET: ' + 'VT creation request for ' + globalTextAreaPrimary
+    subject = 'MOCK TEST TICKET: ' 
+    subject += 'VT creation request for ' + globalTextAreaPrimary
 
-    // DEMO
-    // subjectElement.innerHTML = subject
-
-    var ticketType = 'was sth'
+    var ticketType = ''
     
     var tmpIndex = 0
     var tmpList = ['']
 
-    var tmpStr
-
-    var _ = false 
+    var specCourseType = false
+    var inviteModified = false
     
+    // result string
     var resComments = ''
-    if (globalCourseSpecial.length){
-        resComments = globalCourseSpecial + '<br>'
-        _ = true
-    }
 
+    // OFFERING ID ////////////////////////////////////////////////////////////
+    
+    // set primary offering ID
     var resOffering = 'Offering ID: ' + globalTextAreaPrimary + '<br>'
+
+    // if not globalSingleOffering then there are multiple offerings
     if (!globalSingleOffering){
         tmpList[tmpIndex] = 'multi'
         tmpIndex += 1
-        resOffering = resOffering + 'Other offerings: ' + globalTextAreaOtherOfferings + '<br>'
+        resOffering += 'Other offerings: ' + globalTextAreaOtherOfferings + '<br>'
     }
     
+    // Course code /////////////////////////////////////////////////////////////
+
+    // if globalCourseSpecial is not empty the course is spetial, first week needs to be set to different course
+    if (globalCourseSpecial != ''){
+        resComments = globalCourseSpecial + '<br>'
+        specCourseType = true
+    }
+    
+    // course code
     var resCourse = 'Course code: ' + globalTextAreaCourseCode
+
+    // if the version is not standard (least available)
     if (!globalLeastVersion){
-        resCourse += '---> version: ' + globalTextAreaCourseVersion
+        resCourse += ' -> version: ' + globalTextAreaCourseVersion
         tmpList[tmpIndex] = 'spec.ver'
         tmpIndex += 1
     }
     resCourse += '<br><br>'
 
+
+    // Instructor //////////////////////////////////////////////////////////////
     var resInstructor = 'Instructor RHNID: ' + globalTextAreaInstructorRHNID + '<br>'
     resInstructor += 'Instructor EMAIL: ' + globalTextAreaInstructorEmail + '<br><br>'
     
+
+    // Delivery ////////////////////////////////////////////////////////////////
+
     var resDelivery = 'Delivery: '
+    
+    // if the delivery is onsite
     if (!globalDeliveryOnline){
         resDelivery += 'ONSITE' + '<br>'
         resDelivery += 'Location Address: ' + globalTextAreaLocationAddress + '<br>'
@@ -1264,7 +1281,7 @@ function createEmail(){
         }
         tmpList[tmpIndex] = 'delivery'
         tmpIndex += 1
-    } else {
+    } else { // if the delivery is online
         resDelivery += 'online &'
         if (!globalBluejeans){
             resDelivery += ' no bj creation needed'
@@ -1274,53 +1291,63 @@ function createEmail(){
             resDelivery += ' bj creation requested'
         }
     }
-    if (_ || (globalTextAreaRegion=='EMEA')){
-        tmpList[tmpIndex] = 'comment'
+
+    // EMEA special CC case
+    if (globalTextAreaRegion=='EMEA'){
+        // tmpList[tmpIndex] = 'comment'
+        tmpList.push = 'comment'
         tmpIndex += 1
         resComments += globalStringEmeaCC + '<br><br>'
     }
 
+    // adding comment form the creation
     if (globalTextAreaComment.length > 0 && globalTextAreaComment != 'none'){
-        resComments = resComments + '----<br>' + globalTextAreaComment + '<br>----<br>'
+        resComments = resComments + '----<br>' + globalTextAreaComment + '<br>----<br><br>'
     }
 
-    resDelivery += '<br>' + 'Region: '+ globalTextAreaRegion + '<br><br>'
-    
-    _ = false   
+    // result for DELIVERY
+    resDelivery += '<br>' + 'Region: '+ globalTextAreaRegion + '<br><br>'   
+
+    // Invites ///////////////////////////////////////////////////////////////
+
     var resInvites = ''
     if (!globalInvites){
         resInvites += 'Do not send out invites.'
-        _ = true
+        inviteModified = true
     } else {
         resInvites = 'Send out invites '
         if (!globalInvitesToStudnets){
             resInvites += 'to JUST instructor'
-            _ = true
+            inviteModified = true
         } else {
             resInvites += 'to instructor and enrolled students'
         }
         if (!globalInvitesInEng){
             resInvites += ' using ' + globalTextAreaInviteLanguage + ' template.'
-            _ = true
+            inviteModified = true
         } else {
             resInvites += ' using English template.'
         }
     }
-    if (_){
+
+    // editing modifier prompt
+    if (inviteModified){
         tmpList[tmpIndex] = 'invites'
         tmpIndex += 1
     }
     resInvites += '<br><br>'
     
-    // TODO
+    // eBook ///////////////////////////////////////////////////////////////
     var resEbook = ''
     if (!globalEbook){
         resEbook += 'Disable ebook.<br><br>'
-        tmpList[tmpIndex] = 'ebook'
+        tmpList[tmpIndex] = 'eBook'
         tmpIndex += 1
     } else {
-        resEbook += 'Enable ebook.<br><br>'
+        resEbook += 'Enable eBook.<br><br>'
     }
+
+    // VT Druation /////////////////////////////////////////////////////////
     
     var resDurration = 'Start date & time: ' + globalTextAreaLMSstart + '<br>'
     resDurration += 'End date & time : ' + globalTextAreaLMSend + '<br><br>'
@@ -1336,16 +1363,13 @@ function createEmail(){
         }
     }
 
-    requestContent = /*'<br>------------<br><br>' +*/ 'Hello team,<br>Kindly create VT as per below information:<br><br>'
+    requestContent = 'Hello team,<br>Kindly create VT as per below information:<br><br>'
     if (ticketType.length > 0){
-        requestContent += 'Mod---> ' + ticketType + '<br><br>'
+        requestContent += 'Modifications -> ' + ticketType + '<br><br>'
     }
-    requestContent = requestContent + resComments + resOffering + resCourse + resInstructor + resDelivery + resInvites + resEbook + 'Format of date   : mm/dd/yy; HH:MM XX<br>' + resDurration
-    requestContent = requestContent + '<br>Thank you,<br>' + requester //+ 'NICOL Castillo'
+    requestContent = requestContent + resComments + resOffering + resCourse + resInstructor + resDelivery + resInvites + resEbook + 'Format of date   : mm/dd/yyyy; hh:mm XX<br>' + resDurration
+    requestContent = requestContent + '<br>Thank you<br>'
 
-    // DEMO
-    // var contentElement = document.getElementById('requestContent')
-    // contentElement.innerHTML = requestContent
 }
 
 function encodeString(in_string){
