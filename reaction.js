@@ -45,6 +45,10 @@ var highlight
 // email
 var requester = ''
 var subject = ''
+
+// DEMO
+subject = 'MOCK TEST TICKET: '
+
 var requestContent = ''
 var recipient = ''
 // recipient = 'nicol.castillo@seznam.cz'
@@ -519,9 +523,6 @@ function checkPrimary(){
     var formPrimary = document.getElementById('ta_form_offering_primary')
     var getTextAreaPrimary = document.getElementById('primaryValue').value
 
-    // // DEMO value
-    // getTextAreaPrimary = '12345678'
-
     highlight = document.getElementById('primaryValue')
     // primary 8xInt
     if(validOffering(getTextAreaPrimary)){
@@ -623,9 +624,6 @@ function getValuesOfferings(){
     var formOfferingCount = document.getElementById('ta_form_offering_count')
     var formExpOfferings = document.getElementById('form_exp_offerings')
     
-    // // DEMO value
-    // getSingleOffering = false
-
     var getTextAreaOtherOffering1 = document.getElementById('otherOfferingsValue1').value
     var getTextAreaOtherOffering2 = document.getElementById('otherOfferingsValue2').value
     var getTextAreaOtherOffering3 = document.getElementById('otherOfferingsValue3').value
@@ -692,9 +690,6 @@ function getValuesCourse(){
     var formCourseSpecialRight = document.getElementById('ta_form_course_special_right')
 
     highlight = document.getElementById('courseValue')
-
-    // // DEMO value
-    // getTextAreaCourseCode = 'RH124'
 
     if (getTextAreaCourseCode.length == 0){
         eFlag_course_code = true
@@ -779,10 +774,6 @@ function getValuesInstructor(){
     var getTextAreaInstructorRHNID = document.getElementById('instrRhnidValue').value
     var getTextAreaInstructorEmail = document.getElementById('instrEmailValue').value
 
-    // // DEMO values
-    // getTextAreaInstructorRHNID = 'some_rhnid'
-    // getTextAreaInstructorEmail = 'some@email.cz'
-    
   // RHNID
     var formInstructorRHNID = document.getElementById('ta_form_instructor_rhnid')
 
@@ -972,9 +963,6 @@ function getValuesStudentCount(){
 // student count
     var getTextAreaStudentCount = document.getElementById('studValue').value
 
-    // // DEMO value
-    // getTextAreaStudentCount = '0'
-
     var formStudentCount = document.getElementById('ta_form_student_count')
     highlight = document.getElementById('studValue')
 
@@ -1073,9 +1061,6 @@ function getValuesInvites(){
 function getValuesDuration(){
     // SECTION // DURATION (lms)
     var getTextAreaLMS = document.getElementById('lmsValue').value
-
-    // // DEMO testing
-    // getTextAreaLMS = 'Mon, 03-Feb, 09:00 - Thu, 06-Jan, 15:00 (GMT+2) CEST   Open in new window'
 
     // Mon, 03-Oct, 09:00 - Thu, 06-Oct, 15:00 (GMT+2) CEST   Open in new window
     // >>> 10/03/2022, 09:00 AM
@@ -1221,7 +1206,7 @@ function getMonth(string_month){
 
 function createEmail(){
     var subjectElement = document.getElementById('subject')
-    subject = 'MOCK TEST TICKET: ' 
+    
     subject += 'VT creation request for ' + globalTextAreaPrimary
 
     var ticketType = ''
