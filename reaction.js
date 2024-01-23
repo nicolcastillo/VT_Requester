@@ -1353,12 +1353,11 @@ function createEmail(){
         }
     }
 
-    requestContent = 'Hello team,<br>Kindly create VT as per below information:<br>'
+    requestContent = 'Hello team,<br>Kindly create VT as per below information. Thanks.<br>'
     if (ticketType.length > 0){
         requestContent += '<br>Modifications -> ' + ticketType + '<br><br>'
     }
-    requestContent = requestContent + resComments + resOffering + resCourse + resInstructor + resDelivery + resInvites + resEbook + 'Format of date   : mm/dd/yyyy; hh:mm XX<br>' + resDurration
-    requestContent = requestContent + '<br>Thank you<br>'
+    requestContent = requestContent + resComments + resOffering + resCourse + resInstructor + resDelivery + resInvites + resEbook + 'Format of date   : mm/dd/yyyy; hh:mm XX<br>' + resDurration + '<br><br><br>'
 
     var finMsg = document.getElementById('finalMsgForRequester')
     finMsg.value = 'The request for ' + globalTextAreaPrimary + ' has been completed by this app.'
