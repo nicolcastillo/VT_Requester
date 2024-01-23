@@ -1350,7 +1350,7 @@ function createEmail(){
         }
     }
 
-    requestContent = 'Hello team,<br>Kindly create VT as per below information:<br><br>'
+    requestContent = 'Hello team,<br>Kindly create VT as per below information:<br>'
     if (ticketType.length > 0){
         requestContent += 'Modifications -> ' + ticketType + '<br><br>'
     }
