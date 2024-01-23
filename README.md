@@ -18,10 +18,10 @@
 - for online determing if Bluejeans is needed or not
 - for onsite address is required and link (for example google map link for location) is optional
 
-### Region:
+### Region
 - should be from list {NAMER, LATAM, EMEA, APAC}
 
-### Invites:
+### Invites
 - YES/NO - if shareing invtes is requested
 - All/Instructor - if invites should be sent out to learners and instructor or if the invtes shoud be shared with
 instructor only
