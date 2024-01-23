@@ -1282,7 +1282,7 @@ function createEmail(){
 
     // EMEA special CC case
     if (globalTextAreaRegion=='EMEA'){
-        tmpList[tmpIndex] = 'comment'
+        tmpList[tmpIndex] = 'emeaQuery'
         tmpIndex += 1
         resComments += globalStringEmeaCC + '<br>'
     }
