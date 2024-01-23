@@ -390,6 +390,9 @@ function handlerButtonEdit(){
     handlerShowToHide('windowConfirm', 'windowCreate')
 }
 function handlerButtonConfirm(){
+    var finMsg = document.getElementById('finalMsgForRequester')
+    finMsg.value = 'The request for ' + globalTextAreaPrimary + ' has be completed by this app.'
+
     handlerShowToHide('windowConfirm', 'windowReport')
 }
 function handlerButtonNew(){
@@ -465,6 +468,10 @@ function handlerButtonEmpty(){
     value = document.getElementById('commentValue')
     value.value = ''
     value.style.background = valBase
+
+    var finMsg = document.getElementById('finalMsgForRequester')
+    finMsg.value = ''
+
 }
 
 function evalErr(){
@@ -834,9 +841,6 @@ function getValuesRegion(){
   var arrayAllRegions = ['APAC', 'LATAM', 'NAMER', 'EMEA']
   var formRegion = document.getElementById('ta_form_region')
 
-//   // DEMO value
-//   getTextAreaRegion = 'emea'
-
   highlight = document.getElementById('regionValue')
 
   getTextAreaRegion = getTextAreaRegion.toUpperCase()
@@ -939,9 +943,9 @@ function getValuesEbook(){
 
     var formEbook = document.getElementById('ta_form_ebook')
     if(getEbook){
-        formEbook.innerHTML = 'yes enable'
+        formEbook.innerHTML = 'yes enable eBook'
     } else {
-        formEbook.innerHTML = 'no disable'
+        formEbook.innerHTML = 'no disable eBook'
     }
 // end SECTION // Ebook
 }
@@ -1234,7 +1238,7 @@ function createEmail(){
     // OFFERING ID ////////////////////////////////////////////////////////////
     
     // set primary offering ID
-    var resOffering = 'Offering ID: ' + globalTextAreaPrimary + '<br>'
+    var resOffering = '<br>Offering ID: ' + globalTextAreaPrimary + '<br>'
 
     // if not globalSingleOffering then there are multiple offerings
     if (!globalSingleOffering){
@@ -1284,25 +1288,24 @@ function createEmail(){
     } else { // if the delivery is online
         resDelivery += 'online &'
         if (!globalBluejeans){
-            resDelivery += ' no bj creation needed'
-            tmpList[tmpIndex] = 'bj'
+            resDelivery += ' no BJ creation needed'
+            tmpList[tmpIndex] = 'BJ'
             tmpIndex += 1
         } else {
-            resDelivery += ' bj creation requested'
+            resDelivery += ' BJ creation requested'
         }
     }
 
     // EMEA special CC case
     if (globalTextAreaRegion=='EMEA'){
-        // tmpList[tmpIndex] = 'comment'
-        tmpList.push = 'comment'
+        tmpList[tmpIndex] = 'comment'
         tmpIndex += 1
         resComments += globalStringEmeaCC + '<br><br>'
     }
 
     // adding comment form the creation
     if (globalTextAreaComment.length > 0 && globalTextAreaComment != 'none'){
-        resComments = resComments + '----<br>' + globalTextAreaComment + '<br>----<br><br>'
+        resComments = resComments + '----<br>' + globalTextAreaComment + '<br>----<br>'
     }
 
     // result for DELIVERY
@@ -1340,7 +1343,7 @@ function createEmail(){
     // eBook ///////////////////////////////////////////////////////////////
     var resEbook = ''
     if (!globalEbook){
-        resEbook += 'Disable ebook.<br><br>'
+        resEbook += 'Disable eBook.<br><br>'
         tmpList[tmpIndex] = 'eBook'
         tmpIndex += 1
     } else {
