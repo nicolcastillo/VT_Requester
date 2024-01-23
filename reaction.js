@@ -31,7 +31,7 @@ var globalTextAreaLMSend = ''
 var globalTextAreaComment = ''
 
 // HERE // CC for emea
-var globalStringEmeaCC = 'Make sure to add lywillia@redhat.com and emea-training-delivery-team@redhat.com to ticket watch list.'
+var globalStringEmeaCC = 'Make sure to add lywillia@redhat.com and emea-training-delivery-team@redhat.com to the ticket watch list.'
 
 // basic  split and current date
 var currentTime = new Date()
@@ -47,8 +47,8 @@ var requester = ''
 var subject = ''
 var requestContent = ''
 var recipient = ''
-recipient = 'nicol.castillo@seznam.cz'
-// recipient = 'Rol-support@redhat.com'
+// recipient = 'nicol.castillo@seznam.cz'
+recipient = 'Rol-support@redhat.com'
 
 // ERROR
 var eFlag_offering_primary = false  // must be int len 8
@@ -400,16 +400,10 @@ function handlerNewFromLast(){
     handlerShowToHide('windowReport', 'windowCreate')
 
     // ensures that in new creaion offerins will be inserted a new
-    var value = document.getElementById('primaryValue')
-    value.value = ''
-    value = document.getElementById('otherOfferingsValue1')
-    value.value = ''  
-    value = document.getElementById('otherOfferingsValue2')
-    value.value = ''  
-    value = document.getElementById('otherOfferingsValue3')
-    value.value = ''  
-    value = document.getElementById('otherOfferingsValue4')
-    value.value = '' 
+    ['primaryValue', 'otherOfferingsValue1', 'otherOfferingsValue2', 'otherOfferingsValue3', 'otherOfferingsValue4'].forEach(id => {
+        var value = document.getElementById(id);
+        value.value = '';
+    });
 }
 
 function handlerButtonEmpty(){
@@ -420,36 +414,17 @@ function handlerButtonEmpty(){
     handlerEbookNoToYes()
     handlerOfferingMultiToSingle()
     handlerVersionOtherToLast()
-    var value = document.getElementById('primaryValue')
-    value.value = ''
-    value = document.getElementById('addressValue')
-    value.value = '' 
-    value = document.getElementById('linkValue')
-    value.value = ''
-    value = document.getElementById('inviteValue')
-    value.value = '' 
-    value = document.getElementById('otherOfferingsValue1')
-    value.value = ''  
-    value = document.getElementById('otherOfferingsValue2')
-    value.value = ''  
-    value = document.getElementById('otherOfferingsValue3')
-    value.value = ''  
-    value = document.getElementById('otherOfferingsValue4')
-    value.value = '' 
-    value = document.getElementById('regionValue')
-    value.value = '' 
-    value = document.getElementById('instrRhnidValue')
-    value.value = '' 
-    value = document.getElementById('instrEmailValue')
-    value.value = '' 
-    value = document.getElementById('studValue')
-    value.value = '' 
-    value = document.getElementById('courseValue')
-    value.value = '' 
-    value = document.getElementById('lmsValue')
-    value.value = ''
-    value = document.getElementById('commentValue')
-    value.value = ''
+    ['primaryValue', 'addressValue', 'linkValue', 'inviteValue', 'otherOfferingsValue1', 'otherOfferingsValue2', 'otherOfferingsValue3', 'otherOfferingsValue4', 'regionValue', 'instrRhnidValue', 'instrEmailValue', 'studValue', 'courseValue', 'lmsValue', 'commentValue'].forEach(id => {
+        var value = document.getElementById(id)
+        value.value = ''
+    })
+
+    ['globalTextAreaLocationAddress', 'globalTextAreaLocationLink', 'globalTextAreaInviteLanguage', 'globalTextAreaPrimary', 'globalTextAreaOtherOfferings', 'globalTextAreaRegion', 'globalTextAreaInstructorRHNID', 'globalTextAreaInstructorEmail', 'globalTextAreaStudentCount', 'globalTextAreaCourseCode', 'globalTextAreaCourseVersion', 'globalCourseSpecial', 'globalTextAreaLMSstart', 'globalTextAreaLMSend', 'globalTextAreaComment'].forEach(id => {
+        id.value = ''
+        value.value = ''
+        value.style.background = 'white'
+    })
+    handlerButtonEdit()
 }
 
 function evalErr(){
@@ -525,12 +500,6 @@ function checkOtherOfferings(inlist){
     var resultString = '-empty-'
 
     var arrayOthers = inlist
-
-    // // DEMO value
-    // arrayOthers[0] = '10345678'
-    // arrayOthers[1] = '12345688'
-    // arrayOthers[2] = '12356678'
-    // arrayOthers[3] = '12355678'
 
     // clearse the empty out
     arrayOthers = inlist.filter(function(el) { return el; });
@@ -700,7 +669,7 @@ function getValuesCourse(){
             formCourseCode.innerHTML = getTextAreaCourseCode.toUpperCase()
 
             globalTextAreaCourseCode = getTextAreaCourseCode
-            globalCourseSpecial = 'For first week of DO700 after app-creation set on ROL DO180.'
+            globalCourseSpecial = 'For the first week of DO700 after app-creation set on ROL DO180.'
 
         } else if (getTextAreaCourseCode.toUpperCase() == 'DO720'){
             formExpCourse.style.display = 'block'
@@ -709,7 +678,7 @@ function getValuesCourse(){
             formCourseCode.innerHTML = getTextAreaCourseCode.toUpperCase()
 
             globalTextAreaCourseCode = getTextAreaCourseCode
-            globalCourseSpecial = 'For first week of DO720 after app-creation set on ROL DO180.'
+            globalCourseSpecial = 'For the first week of DO720 after app-creation set on ROL DO180.'
         } else {
     // basic course
             formExpCourse.style.display = 'none'
@@ -1193,41 +1162,6 @@ function getValues(){
         highlightEdit.style.backgroundColor = 'inherit'
     }
 // end SECTION // Validity check
-    
-//   //debug global log
-//     console.log('global:')
-
-//     console.log('globalDeliveryOnline: ' + globalDeliveryOnline)
-
-//     console.log('globalBluejeans: ' + globalBluejeans)
-//     console.log('globalInvites: ' + globalInvites)
-    
-//     console.log('globalInvitesToStudnets: ' + globalInvitesToStudnets)
-//     console.log('globalInvitesInEng: ' + globalInvitesInEng)
-//     console.log('globalSingleOffering: ' + globalSingleOffering)
-//     console.log('globalEbook: ' + globalEbook)
-//     console.log('globalLeastVersion: ' + globalLeastVersion)
-
-//     console.log('globalTextAreaLocationAddress: ' + globalTextAreaLocationAddress)
-//     console.log('globalTextAreaLocationLink: ' + globalTextAreaLocationLink)
-//     console.log('globalTextAreaInviteLanguage: ' + globalTextAreaInviteLanguage)
-//     console.log('globalTextAreaPrimary: ' + globalTextAreaPrimary)
-//     console.log('globalTextAreaOtherOfferings: ' + globalTextAreaOtherOfferings)
-//     console.log('globalTextAreaRegion: ' + globalTextAreaRegion)
-//     console.log('globalTextAreaInstructorRHNID: ' + globalTextAreaInstructorRHNID)
-//     console.log('globalTextAreaInstructorEmail: ' + globalTextAreaInstructorEmail)
-    
-//     console.log('globalTextAreaStudentCount: ' + globalTextAreaStudentCount)
-    
-//     console.log('globalTextAreaCourseCode: ' + globalTextAreaCourseCode)
-//     console.log('globalTextAreaCourseVersion: ' + globalTextAreaCourseVersion)
-
-//     console.log('globalTextAreaLMSstart: ' + globalTextAreaLMSstart)
-//     console.log('globalTextAreaLMSend: ' + globalTextAreaLMSend)
-    
-//     console.log('globalTextAreaComment: ' + globalTextAreaComment)
-
-//     console.log('global end.')
 }
 
 function isNumeric(str) {
@@ -1240,52 +1174,6 @@ function getMonth(string_month){
     const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     return month.indexOf(string_month)+1
 }
-
-// // TODO - get requester email
-// function getRequesterManual(){
-//     let text;
-//     let person = prompt("Please enter your email:", "example@email.com")
-//     if (person == null || person == "") {
-//         text = getRequesterManual()
-//     } else {
-//         text = person
-//     }
-//     document.getElementById('requester').innerHTML = text
-// }
-
-// function getRequester(){
-//     var resStr = ''
-
-//     chrome.runtime.sendMessage({}, function(response){
-//         // DEMO
-//         response = 'sat_megamenu_label=; AMCV_945D02BE532957400A490D4C%40AdobeOrg=-1124106680%7CMCIDTS%7C19280%7CMCMID%7C49079226596255370764287643790345599981%7CMCAAMLH-1666453524%7C6%7CMCAAMB-1666453524%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1665855924s%7CNONE%7CMCAID%7CNONE%7CvVersion%7C5.2.0%7CMCSYNCSOP%7C411-19284; rh_user=ncastill%40redhat.com|Nicol|P|; rh_user_id=53998540; rh_sso_session=1; arp_scroll_position=0;'
-        
-//         if (response == null){
-//             // add allert to insert manually
-//             getRequesterManual()
-// 			return 'manual@redhat.com'
-//         }
-            
-//         // rh_user=ncastill%40redhat.com|Nicol|P|;  
-//         resStr = response.user.split('=')[1].split('|')[0].replace('%40','@')
-//         requester = resStr
-//     })
-
-//     return resStr
-// }
-
-
-// async function handler_cookie(){
-// 	var rh_user = await chrome.cookies.get({url: "https://rol.redhat.com/rol/app/classes", name:"rh_user"})
-//         if (rh_user == null) return getRequesterManual()
-//     return {rh_user: user.value}
-// }
-
-// chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
-//     handler_cookie().then(sendResponse)
-//     return true
-// })
-
 
 function createEmail(){
     var subjectElement = document.getElementById('subject')
@@ -1395,7 +1283,7 @@ function createEmail(){
     }
     
     var resDurration = 'Start date & time: ' + globalTextAreaLMSstart + '<br>'
-    resDurration += 'End date & time: ' + globalTextAreaLMSend + '<br><br>'
+    resDurration += 'End date & time : ' + globalTextAreaLMSend + '<br><br>'
 
     ticketType = tmpList[0]
     if(tmpList.length > 0){
@@ -1405,7 +1293,6 @@ function createEmail(){
                 ticketType = ticketType + ' - '
             }
             ticketType = ticketType + element
-            
         }
     }
 
@@ -1413,8 +1300,8 @@ function createEmail(){
     if (ticketType.length > 0){
         requestContent += 'Mod---> ' + ticketType + '<br><br>'
     }
-    requestContent = requestContent + resComments + resOffering + resCourse + resInstructor + resDelivery + resInvites + resEbook + resDurration
-    requestContent = requestContent + '<br>Thank you,<br>' + requester + 'NICOL Castillo'
+    requestContent = requestContent + resComments + resOffering + resCourse + resInstructor + resDelivery + resInvites + resEbook + 'Format of date   : mm/dd/yy; HH:MM XX<br>' + resDurration
+    requestContent = requestContent + '<br>Thank you,<br>' + requester //+ 'NICOL Castillo'
 
     // DEMO
     // var contentElement = document.getElementById('requestContent')
@@ -1422,7 +1309,6 @@ function createEmail(){
 }
 
 function encodeString(in_string){
-    // in_string = in_string.replaceAll('<br>', 'HOVNO')
     in_string = in_string.replaceAll('<br>', '\%0A')
     in_string = in_string.replaceAll(' ', '\%20')
     in_string = in_string.replaceAll(':', '\%3A')
