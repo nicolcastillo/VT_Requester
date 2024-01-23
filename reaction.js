@@ -44,10 +44,10 @@ var highlight
 
 // email
 var requester = ''
-var subject = ''
+var subject = 'VT creation request for OID: '
 
 // DEMO
-subject = 'MOCK TEST TICKET: '
+// subject = 'MOCK TEST TICKET: '
 
 var requestContent = ''
 var recipient = ''
@@ -394,9 +394,6 @@ function handlerButtonEdit(){
     handlerShowToHide('windowConfirm', 'windowCreate')
 }
 function handlerButtonConfirm(){
-    var finMsg = document.getElementById('finalMsgForRequester')
-    finMsg.value = 'The request for ' + globalTextAreaPrimary + ' has be completed by this app.'
-
     handlerShowToHide('windowConfirm', 'windowReport')
 }
 function handlerButtonNew(){
@@ -1207,7 +1204,7 @@ function getMonth(string_month){
 function createEmail(){
     var subjectElement = document.getElementById('subject')
     
-    subject += 'VT creation request for ' + globalTextAreaPrimary
+    subject += globalTextAreaPrimary
 
     var ticketType = ''
     
@@ -1238,6 +1235,8 @@ function createEmail(){
     if (globalCourseSpecial != ''){
         resComments = globalCourseSpecial + '<br>'
         specCourseType = true
+        tmpList[tmpIndex] = 'specCourse'
+        tmpIndex += 1
     }
     
     // course code
@@ -1290,7 +1289,7 @@ function createEmail(){
 
     // adding comment form the creation
     if (globalTextAreaComment.length > 0 && globalTextAreaComment != 'none'){
-        resComments = resComments + '----<br>' + globalTextAreaComment + '<br>----<br>'
+        resComments = resComments + '<br>----<br>' + globalTextAreaComment + '<br>----<br>'
     }
 
     // result for DELIVERY
@@ -1308,13 +1307,13 @@ function createEmail(){
             resInvites += 'to JUST instructor'
             inviteModified = true
         } else {
-            resInvites += 'to instructor and enrolled students'
+            resInvites += 'to the instructor and enrolled students'
         }
         if (!globalInvitesInEng){
-            resInvites += ' using ' + globalTextAreaInviteLanguage + ' template.'
+            resInvites += ' using ' + globalTextAreaInviteLanguage + ' templates.'
             inviteModified = true
         } else {
-            resInvites += ' using English template.'
+            resInvites += ' using English templates.'
         }
     }
 
@@ -1357,6 +1356,9 @@ function createEmail(){
     }
     requestContent = requestContent + resComments + resOffering + resCourse + resInstructor + resDelivery + resInvites + resEbook + 'Format of date   : mm/dd/yyyy; hh:mm XX<br>' + resDurration
     requestContent = requestContent + '<br>Thank you<br>'
+
+    var finMsg = document.getElementById('finalMsgForRequester')
+    finMsg.value = 'The request for ' + globalTextAreaPrimary + ' has been completed by this app.'
 
 }
 
