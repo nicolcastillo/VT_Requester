@@ -44,7 +44,7 @@ var highlight
 
 // email
 var requester = ''
-var subject = 'VT creation request for OID: '
+var subject = ''
 
 // DEMO
 // subject = 'MOCK TEST TICKET: '
@@ -407,7 +407,7 @@ function handlerNewFromLast(){
 
     globalTextAreaPrimary = ''
     globalTextAreaOtherOfferings = ''
-    
+
     var value = document.getElementById('primaryValue')
     value.value = ''
     value = document.getElementById('otherOfferingsValue1')
@@ -527,7 +527,6 @@ function checkPrimary(){
     highlight = document.getElementById('primaryValue')
     // primary 8xInt
     if(validOffering(getTextAreaPrimary)){
-        // console.log('kekkto')
         eFlag_offering_primary = false
         formPrimary.innerHTML = getTextAreaPrimary
         highlight.style.background = valBase
@@ -535,7 +534,6 @@ function checkPrimary(){
         formPrimary.style.color = 'white'
         globalTextAreaPrimary = getTextAreaPrimary
     } else {
-        // console.log('pekto')
         eFlag_offering_primary = true
         formPrimary.innerHTML = 'offering is not correct'
         highlight.style.background = errYellow
@@ -653,7 +651,7 @@ function getValuesOfferings(){
             element.value = ''
         }
         eFlag_offering_other = false
-    } else {
+    } else { // MULTIPLE OFFERINGS
         formOfferingCount.innerHTML = 'Multi-offering merge'
         formExpOfferings.style.display = 'block'
         
@@ -672,6 +670,7 @@ function getValuesOfferings(){
             for (let index = 0; index < listValues.length; index++) {
                 const element = listValues[index];
                 element.style.background = valBase
+                
             }
         }
     }
@@ -1208,7 +1207,7 @@ function getMonth(string_month){
 function createEmail(){
     var subjectElement = document.getElementById('subject')
     
-    subject += globalTextAreaPrimary
+    subject = 'VT creation request for OID: ' + globalTextAreaPrimary
 
     var ticketType = ''
     
@@ -1356,7 +1355,7 @@ function createEmail(){
 
     requestContent = 'Hello team,<br>Kindly create VT as per below information:<br>'
     if (ticketType.length > 0){
-        requestContent += 'Modifications -> ' + ticketType + '<br><br>'
+        requestContent += '<br>Modifications -> ' + ticketType + '<br><br>'
     }
     requestContent = requestContent + resComments + resOffering + resCourse + resInstructor + resDelivery + resInvites + resEbook + 'Format of date   : mm/dd/yyyy; hh:mm XX<br>' + resDurration
     requestContent = requestContent + '<br>Thank you<br>'
