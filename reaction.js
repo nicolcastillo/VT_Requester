@@ -1284,7 +1284,7 @@ function createEmail(){
     if (globalTextAreaRegion=='EMEA'){
         tmpList[tmpIndex] = 'comment'
         tmpIndex += 1
-        resComments += globalStringEmeaCC + '<br><br>'
+        resComments += globalStringEmeaCC + '<br>'
     }
 
     // adding comment form the creation
