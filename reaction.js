@@ -404,6 +404,10 @@ function handlerNewFromLast(){
     handlerShowToHide('windowReport', 'windowCreate')
 
     // ensures that in new creaion offerins will be inserted a new
+
+    globalTextAreaPrimary = ''
+    globalTextAreaOtherOfferings = ''
+    
     var value = document.getElementById('primaryValue')
     value.value = ''
     value = document.getElementById('otherOfferingsValue1')
