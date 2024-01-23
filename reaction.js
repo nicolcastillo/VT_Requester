@@ -400,10 +400,16 @@ function handlerNewFromLast(){
     handlerShowToHide('windowReport', 'windowCreate')
 
     // ensures that in new creaion offerins will be inserted a new
-    ['primaryValue', 'otherOfferingsValue1', 'otherOfferingsValue2', 'otherOfferingsValue3', 'otherOfferingsValue4'].forEach(id => {
-        var value = document.getElementById(id);
-        value.value = '';
-    });
+    var value = document.getElementById('primaryValue')
+    value.value = ''
+    value = document.getElementById('otherOfferingsValue1')
+    value.value = ''  
+    value = document.getElementById('otherOfferingsValue2')
+    value.value = ''  
+    value = document.getElementById('otherOfferingsValue3')
+    value.value = ''  
+    value = document.getElementById('otherOfferingsValue4')
+    value.value = ''
 }
 
 function handlerButtonEmpty(){
@@ -414,17 +420,51 @@ function handlerButtonEmpty(){
     handlerEbookNoToYes()
     handlerOfferingMultiToSingle()
     handlerVersionOtherToLast()
-    ['primaryValue', 'addressValue', 'linkValue', 'inviteValue', 'otherOfferingsValue1', 'otherOfferingsValue2', 'otherOfferingsValue3', 'otherOfferingsValue4', 'regionValue', 'instrRhnidValue', 'instrEmailValue', 'studValue', 'courseValue', 'lmsValue', 'commentValue'].forEach(id => {
-        var value = document.getElementById(id)
-        value.value = ''
-    })
-
-    ['globalTextAreaLocationAddress', 'globalTextAreaLocationLink', 'globalTextAreaInviteLanguage', 'globalTextAreaPrimary', 'globalTextAreaOtherOfferings', 'globalTextAreaRegion', 'globalTextAreaInstructorRHNID', 'globalTextAreaInstructorEmail', 'globalTextAreaStudentCount', 'globalTextAreaCourseCode', 'globalTextAreaCourseVersion', 'globalCourseSpecial', 'globalTextAreaLMSstart', 'globalTextAreaLMSend', 'globalTextAreaComment'].forEach(id => {
-        id.value = ''
-        value.value = ''
-        value.style.background = 'white'
-    })
-    handlerButtonEdit()
+    var value = document.getElementById('primaryValue')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('addressValue')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('linkValue')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('inviteValue')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('otherOfferingsValue1')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('otherOfferingsValue2')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('otherOfferingsValue3')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('otherOfferingsValue4')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('regionValue')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('instrRhnidValue')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('instrEmailValue')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('studValue')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('courseValue')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('lmsValue')
+    value.value = ''
+    value.style.background = valBase
+    value = document.getElementById('commentValue')
+    value.value = ''
+    value.style.background = valBase
 }
 
 function evalErr(){
